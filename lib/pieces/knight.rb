@@ -1,4 +1,4 @@
-require "board"
+require "./pieces/piece"
 
 class Knight < Piece
   attr_accessor :moves, :position, :icon

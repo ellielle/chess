@@ -1,3 +1,5 @@
+require "./chess"
+
 class Board
   def initialize
     @positions = Hash.new{ |hsh, key| hsh[key] = [] }
@@ -7,7 +9,7 @@ class Board
   end
 
   def create_board
-    color = %w{ black white }
+    color = %w{ black white } #array to alternate background colors of the board with :reverse!
     ('a'..'h').each do |horizontal|
       (1..8).each do |vertical|
         @positions["#{horizontal + vertical.to_s}".to_sym][0] = nil

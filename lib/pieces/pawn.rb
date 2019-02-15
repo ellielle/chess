@@ -1,4 +1,4 @@
-require "board"
+require "./pieces/piece"
 
 class Pawn < Piece
   attr_accessor :moves, :position, :icon #TODO
@@ -7,7 +7,7 @@ class Pawn < Piece
     @moves = {
         regular: [0,1],
         two_steps: [0,2],
-        en_passant: [1,1]
+        en_passant: [[1,1], [1,-1]]
     }
     @position = position
     @icon = is_first ? "♙" : "♟"

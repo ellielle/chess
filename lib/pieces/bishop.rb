@@ -1,4 +1,4 @@
-require "board"
+require "./pieces/piece"
 
 class Bishop < Piece
   attr_accessor :moves, :position, :icon
