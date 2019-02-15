@@ -6,7 +6,7 @@ require "pieces/bishop"
 require "pieces/rook"
 require "pieces/piece"
 require "board"
-require "strings"
+require "string"
 
 class Chess
 

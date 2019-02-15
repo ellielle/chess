@@ -1,6 +1,8 @@
 require "board"
 
 class Knight < Piece
+  attr_accessor :moves, :position, :icon
+
   def initialize(position, is_first)
     @moves = [
         [1,2],

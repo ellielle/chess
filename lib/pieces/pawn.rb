@@ -1,6 +1,8 @@
 require "board"
 
 class Pawn < Piece
+  attr_accessor :moves, :position, :icon #TODO
+
   def initialize(position, is_first)
     @moves = {
         regular: [0,1],
