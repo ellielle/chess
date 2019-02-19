@@ -1,4 +1,4 @@
-require "./pieces/piece"
+require_relative '../../lib/pieces/piece'
 
 class Knight < Piece
   attr_accessor :moves, :position, :icon

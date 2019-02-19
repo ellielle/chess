@@ -1,4 +1,4 @@
-require "./board"
+require_relative '../../lib/board'
 
 class Piece
   def initialize(position, is_first)

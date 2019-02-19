@@ -1,11 +1,4 @@
-require "board"
-require "pieces/piece"
-require "pieces/pawn"
-require "pieces/knight"
-require "pieces/king"
-require "pieces/queen"
-require "pieces/bishop"
-require "pieces/rook"
+require "chess"
 
 describe Board do
   subject(:board) { Board.new }

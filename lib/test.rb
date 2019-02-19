@@ -1,4 +1,4 @@
-require "./board"
+require_relative '../lib/board'
 
 test = Board.new
 test.display_pieces

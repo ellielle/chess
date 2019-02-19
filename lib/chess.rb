@@ -1,13 +1,10 @@
-require "./pieces/pawn"
-require "./pieces/knight"
-require "./pieces/king"
-require "./pieces/queen"
-require "./pieces/bishop"
-require "./pieces/rook"
-require "./pieces/piece"
-require "./board"
-require "./string"
-require "./chess_strings"
+require_relative '../lib/pieces/piece'
+require_relative '../lib/pieces/pawn'
+require_relative '../lib/pieces/knight'
+require_relative '../lib/pieces/bishop'
+require_relative '../lib/pieces/king'
+require_relative '../lib/pieces/queen'
+require_relative '../lib/pieces/rook'
 
 class Chess
 

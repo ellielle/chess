@@ -1,4 +1,4 @@
-require "./chess"
+require_relative 'chess'
 
 class Board
   def initialize
