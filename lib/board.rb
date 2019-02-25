@@ -1,8 +1,9 @@
 require_relative 'chess'
+require_relative 'string'
 
 class Board
   def initialize
-    @positions = Hash.new{ |hsh, key| hsh[key] = [] }
+    @positions = Hash.new{ |hsh, key| hsh[key] = [] } #first element of array is instance of piece, second is board color
     @valid_squares = []
     create_board
     place_pieces
@@ -72,9 +73,41 @@ class Board
     bottom_border
   end
   
-  def top_border; end
-  def bottom_border; end
+  def top_border
+    puts " ┌────┬────┬────┬────┬────┬────┬────┬────┐"
+  end
+
+  def bottom_border
+    puts " └────┴────┴────┴────┴────┴────┴────┴────┘"
+  end
+
   def display_pieces
-    #TODO start with black pieces at top
+    count = 8
+    char = "h"
+    str = ""
+    1.upto(8) do |num|
+      print "#{count}"
+      until char < "a" do
+        if @positions[(char + num.to_s).to_sym][0].nil?
+          str =  @positions[(char + num.to_s).to_sym][1] == "black" ? "|    " :
+                    "|#{"    ".white_background}"
+          print str
+        else
+          str = @positions[(char + num.to_s).to_sym][1] == "black" ?
+                    "| #{@positions[(char + num.to_s).to_sym][0].icon} " :
+                    "| #{@positions[(char + num.to_s).to_sym][0].icon} ".white_background
+          print str
+        end
+        char.prev!
+      end
+      puts "|"
+      char = "h"
+      count -= 1
+      separate unless count == 0
+    end
+  end
+
+  def separate
+    puts " ├────┼────┼────┼────┼────┼────┼────┼────┤"
   end
 end
