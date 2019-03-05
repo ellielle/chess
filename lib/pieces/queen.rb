@@ -6,6 +6,6 @@ class Queen < Piece
   def initialize(position, is_first)
     @moves = []
     @position = position
-    @icon = is_first ? "♕" : "♛"
+    @icon = is_first ? "Q".white : "Q".black
   end
 end

@@ -6,6 +6,6 @@ class Bishop < Piece
   def initialize(position, is_first)
     @moves = []
     @position = position
-    @icon = is_first ? "♗" : "♝"
+    @icon = is_first ? "B".white : "B".black
   end
 end

@@ -6,6 +6,6 @@ class Rook < Piece
   def initialize(position, is_first)
     @moves = []
     @position = position
-    @icon = is_first ? "♖" : "♜"
+    @icon = is_first ? "R".white : "R".black
   end
 end

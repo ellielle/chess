@@ -8,7 +8,7 @@ class Pawn < Piece
         #TODO make moves color based for pawns so they can only move 1 way
     }
     @position = position
-    @icon = is_first ? "♙" : "♟"
+    @icon = is_first ? "P".white : "P".black
     @first_move = true
     #TODO en passant & promotion
     #TODO set first_move to false after move

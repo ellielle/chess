@@ -15,6 +15,6 @@ class Knight < Piece
         [-2,-1]
     ]
     @position = position
-    @icon = is_first ? "♘" : "♞"
+    @icon = is_first ? "K".white : "K".black
   end
 end
