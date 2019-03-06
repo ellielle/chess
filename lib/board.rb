@@ -5,6 +5,8 @@ class Board
   def initialize
     @board_state = Hash.new(nil)
     @empty_squares = [] #TODO get nil squares
+    @game_over = {checkmate: false, stalemate: false}
+    @check = false
     create_board
     place_pieces
   end
