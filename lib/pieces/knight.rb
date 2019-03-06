@@ -1,6 +1,4 @@
-require_relative '../../lib/pieces/piece'
-
-class Knight < Piece
+class Knight
   attr_accessor :moves, :position, :icon
 
   def initialize(position, is_first)

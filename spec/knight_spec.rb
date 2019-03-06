@@ -1,4 +1,3 @@
-require "pieces/piece"
 require "pieces/knight"
 
 describe Knight do

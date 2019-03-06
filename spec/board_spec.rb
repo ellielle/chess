@@ -1,4 +1,5 @@
-require "chess"
+require 'board'
+require 'string'
 
 describe Board do
   subject(:board) { Board.new }

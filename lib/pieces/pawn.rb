@@ -1,6 +1,4 @@
-require_relative '../../lib/pieces/piece'
-
-class Pawn < Piece
+class Pawn
   attr_accessor :moves, :position, :icon #TODO
 
   def initialize(position, is_first)
@@ -13,5 +11,5 @@ class Pawn < Piece
     #TODO en passant & promotion
     #TODO set first_move to false after move
   end
-  
+
 end

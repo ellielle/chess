@@ -1,4 +1,4 @@
-class ChessStrings
+module ChessStrings
   def introduction
     puts "Welcome to command line chess!"
   end
