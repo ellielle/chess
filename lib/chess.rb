@@ -1,17 +1,32 @@
 require_relative '../lib/board'
-require_relative '../lib/chess_strings'
-
 
 class Chess
   include ChessStrings
 
   def initialize
     @game = Board.new
-    start_game
+    @player1 = nil
+    @player2 = nil
+    @turn = %w(@player1 @player2)
+    intro
   end
 
-  def start_game
-    introduction
+  def intro
+    introduction_text
+    player_names
+
+  end
+
+  def player_names
+    #TODO remove names and add prompt for names
+    print "\nEnter player 1's name: "
+    @player1 = "Ellie"
+    print "\nNow enter player 2's name: "
+    @player2 = "Canada"
+  end
+
+  def change_turn
+    @turn.reverse!
   end
 end
 

@@ -5,6 +5,7 @@ require_relative 'pieces/king'
 require_relative 'pieces/queen'
 require_relative 'pieces/rook'
 require_relative 'string'
+require_relative 'chess_strings'
 
 class Board
   def initialize
@@ -107,5 +108,9 @@ class Board
       count -= 1
       separate unless count == 0
     end
+  end
+
+  def valid_move?(move)
+    #TODO ensure each player can only move their own pieces
   end
 end
