@@ -1,10 +1,10 @@
-require '../lib/board'
-require '../lib/chess_strings'
+require_relative '../lib/board'
+require_relative '../lib/chess_strings'
 
 
 class Chess
   include ChessStrings
-  
+
   def initialize
     @game = Board.new
     start_game
