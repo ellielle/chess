@@ -8,7 +8,7 @@ describe Pawn do
     context "when first player" do
       let(:icon) { white_pawn.instance_variable_get(:@icon) }
       it "creates white pawn piece" do
-        expect(icon).to eql("♙")
+        expect(icon).to eql("P".white)
       end
     end
   end

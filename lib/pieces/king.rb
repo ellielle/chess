@@ -6,7 +6,7 @@ class King < Piece
   def initialize(position, is_first)
     @moves = []
     @position = position
-    @icon = is_first ? "K".white : "K".black
+    @icon = is_first ? "@".white : "@".black
   end
 
 end

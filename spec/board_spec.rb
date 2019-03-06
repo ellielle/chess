@@ -2,7 +2,7 @@ require "chess"
 
 describe Board do
   subject(:board) { Board.new }
-  let(:positions) { subject.instance_variable_get(:@positions) }
+  let(:positions) { subject.instance_variable_get(:@board_state) }
   describe "#create_board" do
     before { subject.create_board }
     context "when initialized" do
@@ -10,7 +10,7 @@ describe Board do
         expect(positions).to include(:a1, :a8, :d5, :h8)
       end
       it "fills hash with proper values" do
-        expect(positions).to include(a1: [nil, "black"], a8: [nil, "white"], d5: [nil, "white"], h8: [nil, "black"])
+        expect(positions).to include(a1: nil, a8: nil, d5: nil, h8: nil)
       end
     end
   end
@@ -18,12 +18,12 @@ describe Board do
     before { subject.place_white_pieces }
     context "when run" do
       it "places white knights in first row" do
-        expect(positions[:b1][0].icon).to eql("♘")
-        expect(positions[:g1][0].icon).to eql("♘")
+        expect(positions[:b1].icon).to eql("K".white)
+        expect(positions[:g1].icon).to eql("K".white)
       end
-      xit "places white bishops in first row" do
-        expect(positions[:c1][0].icon).to eql("♗")
-        expect(positions[:f1][0].icon).to eql("♗")
+      it "places white bishops in first row" do
+        expect(positions[:c1].icon).to eql("B".white)
+        expect(positions[:f1].icon).to eql("B".white)
       end
     end
   end
@@ -31,8 +31,8 @@ describe Board do
     before { subject.place_white_pawns }
     context "when run" do
       it "places the row of white pawns" do
-        expect(positions[:a2][0].icon).to eql("♙")
-        expect(positions[:h2][0].icon).to eql("♙")
+        expect(positions[:a2].icon).to eql("P".white)
+        expect(positions[:h2].icon).to eql("P".white)
       end
     end
   end
@@ -40,8 +40,8 @@ describe Board do
     before { subject.place_black_pieces }
     context "when run" do
       it "places black knights in first row" do
-        expect(positions[:b8][0].icon).to eql("♞")
-        expect(positions[:g8][0].icon).to eql("♞")
+        expect(positions[:b8].icon).to eql("K".black)
+        expect(positions[:g8].icon).to eql("K".black)
       end
     end
   end
@@ -49,8 +49,8 @@ describe Board do
     before { subject.place_black_pawns }
     context "when run" do
       it "places black pawns in second row" do
-        expect(positions[:a7][0].icon).to eql("♟")
-        expect(positions[:h7][0].icon).to eql("♟")
+        expect(positions[:a7].icon).to eql("P".black)
+        expect(positions[:h7].icon).to eql("P".black)
       end
     end
   end

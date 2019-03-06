@@ -4,7 +4,7 @@ require_relative 'string'
 class Board
   def initialize
     @board_state = Hash.new(nil)
-    @valid_squares = []
+    @empty_squares = [] #TODO get nil squares
     create_board
     place_pieces
   end

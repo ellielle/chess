@@ -8,7 +8,7 @@ describe Knight do
     context "when first player" do
       let(:icon) { white_knight.instance_variable_get(:@icon) }
       it "creates white knight piece" do
-        expect(icon).to eql("♘")
+        expect(icon).to eql("K".white)
       end
     end
   end
