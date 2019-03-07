@@ -8,6 +8,8 @@ require_relative 'string'
 require_relative 'chess_strings'
 
 class Board
+  attr_reader :game_over, :check
+
   def initialize
     @board_state = Hash.new(nil)
     @empty_squares = [] #TODO get nil squares

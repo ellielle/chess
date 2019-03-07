@@ -7,31 +7,36 @@ class Chess
     @game = Board.new
     @player1 = nil
     @player2 = nil
-    @turn = %w(@player1 @player2)
-    intro
+    @turn = player_names
+    game_loop
   end
 
   def intro
     introduction_text
-    player_names
-
   end
 
   def player_names
     #TODO remove names and add prompt for names
-    print "\nEnter player 1's name: "
+    puts "\nEnter player 1's name: "
     @player1 = "Ellie"
-    print "\nNow enter player 2's name: "
+    puts "Now enter player 2's name: "
     @player2 = "Canada"
+    [@player1, @player2]
+  end
+
+  def game_loop
+    intro
+    loop do
+
+    end
+  end
+
+  def game_end
+    #TODO TEXT
+    exit
   end
 
   def change_turn
     @turn.reverse!
   end
 end
-
-def run_game
-  run = Chess.new
-end
-
-run_game
