@@ -4,9 +4,11 @@ module ChessStrings
       Welcome to command line chess! Basic rules can be found at:
       https://en.wikipedia.org/wiki/Chess
       Player 1 will go first, and will control the pieces at the bottom of the board.
+      You may enter "exit" at any time to give up and exit the game.
     )
     puts text.gsub(/^#{text.scan(/^[ \t]+(?=\S)/).min}/, '')
   end
+
   def pawn_promotion; end  #TODO will need to pass specific pawn instance into method in board.rb
 
   def check
@@ -18,7 +20,12 @@ module ChessStrings
   end
 
   def check_mate
-
+    puts "Checkmate! #{@turn[0]} wins! Press ENTER to exit."
+    gets
   end
-  def stalemate; end
+
+  def stalemate
+    puts "The game has ended in a stalemate. Press ENTER to exit."
+    gets
+  end
 end
