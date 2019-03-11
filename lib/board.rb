@@ -114,5 +114,6 @@ class Board
 
   def valid_move?(move)
     #TODO ensure each player can only move their own pieces
+    #TODO ensure space is either empty or piece is other color and can be taken
   end
 end

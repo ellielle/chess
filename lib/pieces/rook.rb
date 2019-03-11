@@ -3,7 +3,7 @@ class Rook
   attr_reader :moves, :icon, :is_white
 
   def initialize(position, is_white)
-    @moves = []
+    @moves = [[0, 1..7], [1..7, 0]]
     @position = position
     @icon = is_white ? "R".white : "R".black
     @is_white = is_white
