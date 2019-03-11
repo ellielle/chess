@@ -9,7 +9,7 @@ module ChessStrings
     puts text.gsub(/^#{text.scan(/^[ \t]+(?=\S)/).min}/, '')
   end
 
-  def pawn_promotion_text; end  #TODO will need to pass specific pawn instance into method in board.rb
+  def pawn_promotion_text; end
 
   def check_text
     puts "#{@turn[0]}'s king is in check."

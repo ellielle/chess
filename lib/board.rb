@@ -12,7 +12,6 @@ class Board
 
   def initialize
     @board_state = Hash.new(nil)
-    @empty_squares = [] #TODO get nil squares
     @game_over = {checkmate: false, stalemate: false}
     @check = false
     create_board
@@ -115,5 +114,9 @@ class Board
   def valid_move?(move)
     #TODO ensure each player can only move their own pieces
     #TODO ensure space is either empty or piece is other color and can be taken
+  end
+
+  def promote_pawn(pawn)
+    #TODO will need to pass specific pawn instance
   end
 end
