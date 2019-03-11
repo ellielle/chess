@@ -1,9 +1,11 @@
 class Queen
-  attr_accessor :moves, :position, :icon
+  attr_accessor :position
+  attr_reader :moves, :icon, :is_white
 
-  def initialize(position, is_first)
+  def initialize(position, is_white)
     @moves = []
     @position = position
-    @icon = is_first ? "Q".white : "Q".black
+    @icon = is_white ? "Q".white : "Q".black
+    @is_white = is_white
   end
 end

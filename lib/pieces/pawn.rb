@@ -1,10 +1,12 @@
 class Pawn
-  attr_accessor :moves, :position, :icon #TODO
+  attr_accessor :position
+  attr_reader :moves, :icon, :is_white
 
-  def initialize(position, is_first)
-    @moves = is_first ? white_moves : black_moves
+  def initialize(position, is_white)
+    @moves = is_white ? white_moves : black_moves
     @position = position
-    @icon = is_first ? "P".white : "P".black
+    @icon = is_white ? "P".white : "P".black
+    @is_white = is_white
     @first_move = true
     #TODO en passant & promotion
     #TODO set first_move to false after move
