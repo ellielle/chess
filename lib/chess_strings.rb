@@ -9,22 +9,22 @@ module ChessStrings
     puts text.gsub(/^#{text.scan(/^[ \t]+(?=\S)/).min}/, '')
   end
 
-  def pawn_promotion; end  #TODO will need to pass specific pawn instance into method in board.rb
+  def pawn_promotion_text; end  #TODO will need to pass specific pawn instance into method in board.rb
 
-  def check
+  def check_text
     puts "#{@turn[0]}'s king is in check."
   end
 
-  def check_invalid_move
+  def invalid_move_text
     puts "Invalid move. #{@turn[0]}'s king is still in check."
   end
 
-  def check_mate
+  def check_mate_text
     puts "Checkmate! #{@turn[0]} wins! Press ENTER to exit."
     gets
   end
 
-  def stalemate
+  def stalemate_text
     puts "The game has ended in a stalemate. Press ENTER to exit."
     gets
   end
