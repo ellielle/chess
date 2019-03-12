@@ -128,7 +128,7 @@ class Board
   end
 
   def split_move_into_array(move)
-    move.gsub!(' ', '').split(",")
+    move.gsub(' ', '').split(",")
   end
 
   def player_owns_piece?(piece, turn)
@@ -149,16 +149,25 @@ class Board
 
   def move_in_moveset?(start, finish)
     true
+    #TODO implement
   end
 
   def move_piece(move)
+    hsh = { a: "1", b: "2", c: "3", d: "4", e: "5", f: "6", g: "7", h: "8" }
     move = split_move_into_array(move)
-    finish = convert_position_to_number(move[0])
-    @board_state[move[0].to_sym]
-
+    @board_state[move[1].to_sym] = @board_state[move[0].to_sym]
+    finish = convert_position_to_number(move[1], hsh)
+    @board_state[move[1].to_sym].position = finish
+    @board_state[move[0].to_sym] = nil
+    sleep 1
   end
 
-  def convert_position_to_number(move)
+  def convert_position_to_number(move, hsh)
+    position = hsh[move[0].to_sym] + move[1]
+    position.split(//).map { |chr| chr.to_i }
+  end
+
+  def convert_number_to_position(move, hsh)
 
   end
 

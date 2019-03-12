@@ -1,4 +1,4 @@
 require_relative '../lib/board'
 
-test = Board.new
+test = Board.new("Ellie", "Canada")
 test.display
