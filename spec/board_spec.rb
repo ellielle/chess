@@ -55,4 +55,16 @@ describe Board do
       end
     end
   end
+  describe "#move_piece" do
+    context "when using the move b2 to b4" do
+      it "moves the pawn at b2 to b4" do
+        subject.move_piece("b2, b4")
+        expect(positions[:b4].position).to eql([2, 4])
+      end
+      it "removes the pawn from b2" do
+        subject.move_piece("b2, b4")
+        expect(positions[:b2]).to be_nil
+      end
+    end
+  end
 end
