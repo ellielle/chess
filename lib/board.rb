@@ -96,7 +96,7 @@ class Board
   def display_pieces
     count = 8
     char = "h"
-    1.upto(8) do |num|
+    8.downto(1) do |num|
       print "#{count} "
       until char < "a" do
         if @board_state[(char + num.to_s).to_sym].nil?
@@ -159,7 +159,6 @@ class Board
     finish = convert_position_to_number(move[1], hsh)
     @board_state[move[1].to_sym].position = finish
     @board_state[move[0].to_sym] = nil
-    sleep 1
   end
 
   def convert_position_to_number(move, hsh)
