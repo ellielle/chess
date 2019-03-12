@@ -15,8 +15,12 @@ module ChessStrings
     puts "#{@turn[0]}'s king is in check."
   end
 
-  def invalid_move_text
+  def invlaid_move_check_text
     puts "Invalid move. #{@turn[0]}'s king is still in check."
+  end
+
+  def invalid_move_text
+    puts "Invalid move."
   end
 
   def check_mate_text

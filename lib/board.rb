@@ -10,7 +10,9 @@ require_relative 'chess_strings'
 class Board
   attr_reader :game_over, :check
 
-  def initialize
+  def initialize(player1, player2)
+    @player1 = player1
+    @player2 = player2
     @board_state = Hash.new(nil)
     @game_over = {checkmate: false, stalemate: false}
     @check = false
@@ -111,9 +113,53 @@ class Board
     end
   end
 
-  def valid_move?(move)
-    #TODO ensure each player can only move their own pieces
+  def valid_move?(move, turn)
+    move = split_move_into_array(move)
+    start = move[0]
+    finish = move[1]
+    return false unless space_exists?(start)
+    return false unless space_exists?(finish)
+    return false unless player_owns_piece?(start, turn)
+    return false unless space_empty?(finish)
+    return false unless move_in_moveset?(start, finish)
+    #TODO validate_move with moveset
     #TODO ensure space is either empty or piece is other color and can be taken
+    true
+  end
+
+  def split_move_into_array(move)
+    move.gsub!(' ', '').split(",")
+  end
+
+  def player_owns_piece?(piece, turn)
+    return true if @player1 == turn && @board_state[piece.to_sym].is_white
+    return true if @player2 == turn && !@board_state[piece.to_sym].is_white
+    false
+  end
+
+  def space_exists?(position)
+    return true if @board_state.key?(position.to_sym)
+    false
+  end
+
+  def space_empty?(position)
+    return true if @board_state[position.to_sym].nil?
+    false
+  end
+
+  def move_in_moveset?(start, finish)
+    true
+  end
+
+  def move_piece(move)
+    move = split_move_into_array(move)
+    finish = convert_position_to_number(move[0])
+    @board_state[move[0].to_sym]
+
+  end
+
+  def convert_position_to_number(move)
+
   end
 
   def promote_pawn(pawn)

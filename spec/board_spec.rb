@@ -2,7 +2,7 @@ require 'board'
 require 'string'
 
 describe Board do
-  subject(:board) { Board.new }
+  subject(:board) { Board.new("Ellie", "Canada") }
   let(:positions) { subject.instance_variable_get(:@board_state) }
   describe "#create_board" do
     before { subject.create_board }
