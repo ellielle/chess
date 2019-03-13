@@ -4,6 +4,7 @@ module ChessStrings
       Welcome to command line chess! Basic rules can be found at:
       https://en.wikipedia.org/wiki/Chess
       Player 1 will go first, and will control the pieces at the bottom of the board.
+      You may enter "save" at any time to save the current game, or "load" to load a game.
       You may enter "exit" at any time to give up and exit the game.
     )
     puts text.gsub(/^#{text.scan(/^[ \t]+(?=\S)/).min}/, '')
