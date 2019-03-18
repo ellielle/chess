@@ -59,5 +59,9 @@ class Chess
   def change_turn
     @turn.reverse!
   end
+
+  def load_game; end
+  def save_game; end
+
 end
 #TODO ADD SAVE AND RESUME FUNCTIONALITY

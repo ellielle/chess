@@ -23,6 +23,7 @@ class Board
   def create_board
     ('a'..'h').each do |horizontal|
       (1..8).each do |vertical|
+        #TODO board is printing backwards
         @board_state["#{horizontal + vertical.to_s}".to_sym] = nil
       end
     end
@@ -95,19 +96,19 @@ class Board
 
   def display_pieces
     count = 8
-    char = "h"
+    char = "a"
     8.downto(1) do |num|
       print "#{count} "
-      until char < "a" do
+      until char > "h" do
         if @board_state[(char + num.to_s).to_sym].nil?
           print "|   "
         else
           print "| #{@board_state[(char + num.to_s).to_sym].icon} "
         end
-        char.prev!
+        char.next!
       end
       puts "| #{count}"
-      char = "h"
+      char = "a"
       count -= 1
       separate unless count == 0
     end
