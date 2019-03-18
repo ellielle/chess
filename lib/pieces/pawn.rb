@@ -1,6 +1,9 @@
 require_relative '../../lib/board'
+require_relative '../../lib/convert'
 
 class Pawn
+  include ConvertCoordinates
+
   attr_accessor :position
   attr_reader :moves, :icon, :is_white
 
@@ -30,22 +33,35 @@ class Pawn
             take: [[-1,-1],[-1,1]]
     }
   end
-
+#TODO unset enpassant on next move if it's set to true
+#TODO test black pawn moves, values already set in chess.rb
   def in_moveset?(move)
+    start = convert_number_to_position(move[0])
     if @is_white
       @moves.each do |key, value|
-        if key == :two
+        if key == :normal
           if move[0][0] + value[0] == move[1][0] && move[0][1] + value[1] == move[1][1]
-            @first_move = false
             return true
           end
+        elsif key == :two && @first_move
+          if move[0][0] + value[0] == move[1][0] && move[0][1] + value[1] == move[1][1]
+            @first_move = false
+            @can_be_en_passant = true
+            return true
+          end
+=begin
         elsif key == :take
           if move[0][0] + value[0] == move[1][0] && move[0][1] + value[1] == move[1][1]
-            #TODO FINISH
+            #TODO value is 2 dimensional, can't compare it this way
+            #probably value.each {}
           end
+=end
         end
       end
+      false
+    else
+    #TODO black pawns
+
     end
-    move[0][0] + moveset[0] == move[1][0] && move[0][1] + moveset[1] == move[1][1]
   end
 end
