@@ -9,5 +9,7 @@ class Bishop
     @is_white = is_white
   end
 
-  #TODO make sure diagonal moves are the same number or invalid move
+  def in_moveset?(move)
+    #TODO make sure diagonal moves are the same number or invalid move
+  end
 end

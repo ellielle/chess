@@ -121,7 +121,7 @@ class Board
     return false unless space_exists?(start)
     return false unless space_exists?(finish)
     return false unless player_owns_piece?(start, turn)
-    return false unless space_empty?(finish)
+    return false unless space_empty?(finish) #TODO empty or enemy
     return false unless move_in_moveset?(start, finish)
     #TODO validate_move with moveset
     #TODO ensure space is either empty or piece is other color and can be taken
@@ -149,27 +149,26 @@ class Board
   end
 
   def move_in_moveset?(start, finish)
-    true
-    #TODO implement
+    move = [convert_position_to_number(start), convert_position_to_number(finish)]
+    in_moveset = @board_state[start.to_sym].in_moveset?(move)
   end
 
   def move_piece(move)
-    hsh = { a: "1", b: "2", c: "3", d: "4", e: "5", f: "6", g: "7", h: "8" }
     move = split_move_into_array(move)
     @board_state[move[1].to_sym] = @board_state[move[0].to_sym]
-    finish = convert_position_to_number(move[1], hsh)
+    finish = convert_position_to_number(move[1])
     @board_state[move[1].to_sym].position = finish
     @board_state[move[0].to_sym] = nil
   end
 
-  def convert_position_to_number(move, hsh)
+  def convert_position_to_number(move)
+    hsh = { a: "1", b: "2", c: "3", d: "4", e: "5", f: "6", g: "7", h: "8" }
     position = hsh[move[0].to_sym] + move[1]
-    position.split(//).map { |chr| chr.to_i }
+    return position.split(//).map { |chr| chr.to_i }
   end
 
-  def convert_number_to_position(move, hsh)
+  #def convert_number_to_position(move, hsh); end #TODO may be deprecated
 
-  end
 
   def promote_pawn(pawn)
     #TODO will need to pass specific pawn instance

@@ -29,4 +29,8 @@ class Pawn
     }
   end
 
+  def in_moveset?(move)
+    if @is_white
+    end
+  end
 end

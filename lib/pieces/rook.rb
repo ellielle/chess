@@ -8,4 +8,8 @@ class Rook
     @icon = is_white ? "R".white : "R".black
     @is_white = is_white
   end
+
+  def in_moveset?(move)
+
+  end
 end

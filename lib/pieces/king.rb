@@ -9,4 +9,8 @@ class King
     @is_white = is_white
   end
 
+  def in_moveset?(move)
+
+    #TODO check for check & checkmate before allowing move
+  end
 end
