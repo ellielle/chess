@@ -1,3 +1,5 @@
+require_relative '../../lib/board'
+
 class Knight
   attr_accessor :position
   attr_reader :moves, :icon, :is_white

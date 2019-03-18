@@ -1,3 +1,5 @@
+require_relative '../../lib/board'
+
 class Rook
   attr_accessor :position
   attr_reader :moves, :icon, :is_white
@@ -11,6 +13,6 @@ class Rook
 
   def in_moveset?(move)
 
-    #TODO ensure no friendly piece is in path or enemy piece is
+    #TODO ensure no pieces are in path except potentially at the finish pos
   end
 end

@@ -1,3 +1,5 @@
+require_relative '../../lib/board'
+
 class Pawn
   attr_accessor :position
   attr_reader :moves, :icon, :is_white
@@ -31,6 +33,19 @@ class Pawn
 
   def in_moveset?(move)
     if @is_white
+      @moves.each do |key, value|
+        if key == :two
+          if move[0][0] + value[0] == move[1][0] && move[0][1] + value[1] == move[1][1]
+            @first_move = false
+            return true
+          end
+        elsif key == :take
+          if move[0][0] + value[0] == move[1][0] && move[0][1] + value[1] == move[1][1]
+            #TODO FINISH
+          end
+        end
+      end
     end
+    move[0][0] + moveset[0] == move[1][0] && move[0][1] + moveset[1] == move[1][1]
   end
 end

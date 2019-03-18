@@ -125,6 +125,7 @@ class Board
     return false unless move_in_moveset?(start, finish)
     #TODO validate_move with moveset
     #TODO ensure space is either empty or piece is other color and can be taken
+
     true
   end
 
@@ -167,8 +168,10 @@ class Board
     return position.split(//).map { |chr| chr.to_i }
   end
 
-  #def convert_number_to_position(move, hsh); end #TODO may be deprecated
-
+  def convert_number_to_position(move)
+    hsh = { "1": "a", "2": "b", "3": "c", "4": "d", "5": "e", "6": "f", "7": "g", "8": "h" }
+    position = hsh[move[0].to_s.to_sym] + move[1].to_s
+  end
 
   def promote_pawn(pawn)
     #TODO will need to pass specific pawn instance

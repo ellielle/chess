@@ -11,6 +11,6 @@ class Queen
 
   def in_moveset?(move)
     #TODO make sure diagonal moves are the same number or invalid move
-    #TODO ensure no friendly piece is in path or enemy piece is
+    #TODO ensure no pieces are in path except potentially at the finish pos
   end
 end

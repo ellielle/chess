@@ -1,3 +1,5 @@
+require_relative '../../lib/board'
+
 class King
   attr_accessor :position
   attr_reader :moves, :icon, :is_white
