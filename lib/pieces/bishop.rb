@@ -11,5 +11,6 @@ class Bishop
 
   def in_moveset?(move)
     #TODO make sure diagonal moves are the same number or invalid move
+    #TODO ensure no friendly piece is in path or enemy piece is
   end
 end

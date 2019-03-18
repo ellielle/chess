@@ -11,5 +11,6 @@ class Rook
 
   def in_moveset?(move)
 
+    #TODO ensure no friendly piece is in path or enemy piece is
   end
 end

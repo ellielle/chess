@@ -67,4 +67,12 @@ describe Board do
       end
     end
   end
+  describe "#convert_number_to_position" do
+    context "when passed in number coordinates" do
+      it "returns the letter & number for the board coordinate" do
+        move = subject.convert_number_to_position([2, 3])
+        expect(move).to eql("b3")
+      end
+    end
+  end
 end
