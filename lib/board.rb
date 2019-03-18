@@ -8,7 +8,9 @@ require_relative 'string'
 require_relative 'chess_strings'
 
 class Board
-  attr_reader :game_over, :check
+  include ConvertCoordinates
+
+  attr_reader :game_over, :check, :board_state
 
   def initialize(player1, player2)
     @player1 = player1
@@ -160,17 +162,6 @@ class Board
     finish = convert_position_to_number(move[1])
     @board_state[move[1].to_sym].position = finish
     @board_state[move[0].to_sym] = nil
-  end
-
-  def convert_position_to_number(move)
-    hsh = { a: "1", b: "2", c: "3", d: "4", e: "5", f: "6", g: "7", h: "8" }
-    position = hsh[move[0].to_sym] + move[1]
-    return position.split(//).map { |chr| chr.to_i }
-  end
-
-  def convert_number_to_position(move)
-    hsh = { "1": "a", "2": "b", "3": "c", "4": "d", "5": "e", "6": "f", "7": "g", "8": "h" }
-    position = hsh[move[0].to_s.to_sym] + move[1].to_s
   end
 
   def promote_pawn(pawn)
