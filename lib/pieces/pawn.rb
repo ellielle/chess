@@ -34,13 +34,14 @@ class Pawn
     }
   end
 #TODO unset enpassant on next move if it's set to true
-#TODO test black pawn moves, values already set in chess.rb
   def in_moveset?(move)
     start = convert_number_to_position(move[0])
+    finish = convert_number_to_position(move[1])
     if @is_white
       @moves.each do |key, value|
         if key == :normal
           if move[0][0] + value[0] == move[1][0] && move[0][1] + value[1] == move[1][1]
+            @can_be_en_passant = false if @can_be_en_passant
             return true
           end
         elsif key == :two && @first_move
@@ -49,19 +50,38 @@ class Pawn
             @can_be_en_passant = true
             return true
           end
-=begin
         elsif key == :take
-          if move[0][0] + value[0] == move[1][0] && move[0][1] + value[1] == move[1][1]
-            #TODO value is 2 dimensional, can't compare it this way
-            #probably value.each {}
+          value.each do |v|
+            if move[0][0] + v[0] == move[1][0] && move[0][1] + v[1] == move[1][1]
+              @can_be_en_passant = false if @can_be_en_passant
+              return true
+            end
           end
-=end
         end
       end
-      false
     else
-    #TODO black pawns
-
+      @moves.each do |key, value|
+        if key == :normal
+          if move[0][0] + value[0] == move[1][0] && move[0][1] + value[1] == move[1][1]
+            @can_be_en_passant = false if @can_be_en_passant
+            return true
+          end
+        elsif key == :two && @first_move
+          if move[0][0] + value[0] == move[1][0] && move[0][1] + value[1] == move[1][1]
+            @first_move = false
+            @can_be_en_passant = true
+            return true
+          end
+        elsif key == :take
+          value.each do |v|
+            if move[0][0] + v[0] == move[1][0] && move[0][1] + v[1] == move[1][1]
+              @can_be_en_passant = false if @can_be_en_passant
+              return true
+            end
+          end
+        end
+      end
     end
+    false
   end
 end

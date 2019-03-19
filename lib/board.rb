@@ -136,6 +136,7 @@ class Board
   end
 
   def player_owns_piece?(piece, turn)
+    return false if @board_state[piece.to_sym].nil?
     return true if @player1 == turn && @board_state[piece.to_sym].is_white
     return true if @player2 == turn && !@board_state[piece.to_sym].is_white
     false
@@ -160,6 +161,7 @@ class Board
     move = split_move_into_array(move)
     @board_state[move[1].to_sym] = @board_state[move[0].to_sym]
     finish = convert_position_to_number(move[1])
+    #TODO add piece taking method here
     @board_state[move[1].to_sym].position = finish
     @board_state[move[0].to_sym] = nil
   end
