@@ -38,21 +38,21 @@ class Pawn
     start = convert_number_to_position(move[0])
     finish = convert_number_to_position(move[1])
     if @is_white
-      @moves.each do |key, value|
-        if key == :normal
-          if move[0][0] + value[0] == move[1][0] && move[0][1] + value[1] == move[1][1]
+      @moves.each do |move_type, moveset|
+        if move_type == :normal
+          if move[0][0] + moveset[0] == move[1][0] && move[0][1] + moveset[1] == move[1][1]
             @can_be_en_passant = false if @can_be_en_passant
             return true
           end
-        elsif key == :two && @first_move
-          if move[0][0] + value[0] == move[1][0] && move[0][1] + value[1] == move[1][1]
+        elsif move_type == :two && @first_move
+          if move[0][0] + moveset[0] == move[1][0] && move[0][1] + moveset[1] == move[1][1]
             @first_move = false
             @can_be_en_passant = true
             return true
           end
-        elsif key == :take
-          value.each do |v|
-            if move[0][0] + v[0] == move[1][0] && move[0][1] + v[1] == move[1][1]
+        elsif move_type == :take
+          moveset.each do |m|
+            if move[0][0] + m[0] == move[1][0] && move[0][1] + m[1] == move[1][1]
               @can_be_en_passant = false if @can_be_en_passant
               return true
             end
@@ -60,21 +60,21 @@ class Pawn
         end
       end
     else
-      @moves.each do |key, value|
-        if key == :normal
-          if move[0][0] + value[0] == move[1][0] && move[0][1] + value[1] == move[1][1]
+      @moves.each do |move_type, moveset|
+        if move_type == :normal
+          if move[0][0] + moveset[0] == move[1][0] && move[0][1] + moveset[1] == move[1][1]
             @can_be_en_passant = false if @can_be_en_passant
             return true
           end
-        elsif key == :two && @first_move
-          if move[0][0] + value[0] == move[1][0] && move[0][1] + value[1] == move[1][1]
+        elsif move_type == :two && @first_move
+          if move[0][0] + moveset[0] == move[1][0] && move[0][1] + moveset[1] == move[1][1]
             @first_move = false
             @can_be_en_passant = true
             return true
           end
-        elsif key == :take
-          value.each do |v|
-            if move[0][0] + v[0] == move[1][0] && move[0][1] + v[1] == move[1][1]
+        elsif move_type == :take
+          moveset.each do |m|
+            if move[0][0] + m[0] == move[1][0] && move[0][1] + m[1] == move[1][1]
               @can_be_en_passant = false if @can_be_en_passant
               return true
             end
