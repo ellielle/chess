@@ -154,7 +154,13 @@ class Board
 
   def move_in_moveset?(start, finish)
     move = [convert_position_to_number(start), convert_position_to_number(finish)]
-    in_moveset = @board_state[start.to_sym].in_moveset?(move)
+    if @board_state[start.to_sym].is_a?(Rook) || @board_state[start.to_sym].is_a?(Bishop) ||
+        @board_state[start.to_sym].is_a?(Queen)
+      board = @board_state
+      in_moveset = @board_state[start.to_sym].in_moveset?(move, board)
+    else
+      in_moveset = @board_state[start.to_sym].in_moveset?(move)
+    end
   end
 
   def move_piece(move)

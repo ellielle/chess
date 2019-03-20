@@ -35,7 +35,7 @@ class Chess
       until valid_move
         puts "\n#{@turn[0]}'s turn. Enter your move in the format: 'b2, b4':"
         #TODO replace with gets for user input
-        move = "b2, b4"
+        move = "a1, a6"
         move = "b7, b5" if @turn[0] == "Canada"
         #TODO above
         valid_move = @game.valid_move?(move, @turn[0])
