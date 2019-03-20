@@ -1,5 +1,4 @@
 require "pieces/knight"
-require "board"
 
 describe Knight do
   subject(:board) { Board.new("Ellie", "Canada") }
