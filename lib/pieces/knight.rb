@@ -17,5 +17,6 @@ class Knight
         return true
       end
     end
+    false
   end
 end

@@ -11,7 +11,9 @@ class Bishop
     @is_white = is_white
   end
 
-  def in_moveset?(move)
+  def in_moveset?(move, board_state)
+    #TODO change moveset like rook.rb
+
     #TODO make sure diagonal moves are the same number or invalid move
     #TODO ensure no pieces are in path except potentially at the finish pos
   end
