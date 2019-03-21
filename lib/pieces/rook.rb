@@ -29,13 +29,27 @@ class Rook
   def path_clear?(move, board_state)
     if move[0][0] == move[1][0]
       if move[0][1] < move[1][1]
-        start = move[0][0] + 1
+        start = move[0][1] + 1
         start.upto(move[1][1]) do |space|
           return false unless board_state[convert_number_to_position([move[0][0], space]).to_sym].nil?
-          #FIXME don't start at start piece's space, will return false
         end
       elsif move[0][1] > move[1][1]
-        #TODO 
+        start = move[0][1] - 1
+        start.downto(move[1][1]) do |space|
+          return false unless board_state[convert_number_to_position([move[0][0], space]).to_sym].nil?
+        end
+      end
+    elsif move[0][1] == move[1][1]
+      if move[0][0] < move[1][0]
+        start = move[0][0] + 1
+        start.upto(move[1][0]) do |space|
+          return false unless board_state[convert_number_to_position([space, move[0][1]]).to_sym].nil?
+        end
+      elsif move[0][0] > move[1][0]
+        start = move[0][0] - 1
+        start.downto(move[1][0]) do |space|
+          return false unless board_state[convert_number_to_position([space, move[0][1]]).to_sym].nil?
+        end
       end
     end
   end
