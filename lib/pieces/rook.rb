@@ -1,15 +1,15 @@
 require_relative '../../lib/board'
 require_relative '../../lib/convert'
-require_relative '../../lib/piece_is_white'
+require_relative '../../lib/piece_methods'
 
 class Rook
-  include ConvertCoordinates, PieceIsWhite
+  include ConvertCoordinates, PieceMethods
 
   attr_accessor :position
   attr_reader :moves, :icon, :is_white
 
   def initialize(position, is_white)
-    @moves = set_moveset
+    @moves = create_moveset
     @position = position
     @icon = is_white ? "R".white : "R".black
     @is_white = is_white
@@ -83,12 +83,16 @@ class Rook
     end
   end
 
-  def set_moveset
+  def create_moveset
     moves = []
     1.upto(7) { |num| moves << [0, num] }
     1.upto(7) { |num| moves << [num, 0] }
     -1.downto(-7) { |num| moves << [0, num] }
     -1.downto(-7) { |num| moves << [num, 0] }
     moves
+  end
+
+  def find_potential_moves
+    @potential_moves = potential_moves(@moves, @position, @is_white)
   end
 end

@@ -170,6 +170,7 @@ class Board
     #TODO add piece taking method here
     @board_state[move[1].to_sym].position = finish
     @board_state[move[0].to_sym] = nil
+    #TODO add call to moved piece's potential_moves method to check for 'check' status
   end
 
   def promote_pawn(pawn)

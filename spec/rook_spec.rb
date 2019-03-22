@@ -40,4 +40,11 @@ describe Rook do
       end
     end
   end
+  describe "#find_potential_moves" do
+    context "when called" do
+      it "returns a list of all potential spaces the piece can move to" do
+
+      end
+    end
+  end
 end
