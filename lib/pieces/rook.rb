@@ -1,8 +1,9 @@
 require_relative '../../lib/board'
 require_relative '../../lib/convert'
+require_relative '../../lib/piece_is_white'
 
 class Rook
-  include ConvertCoordinates
+  include ConvertCoordinates, PieceIsWhite
 
   attr_accessor :position
   attr_reader :moves, :icon, :is_white
@@ -12,6 +13,7 @@ class Rook
     @position = position
     @icon = is_white ? "R".white : "R".black
     @is_white = is_white
+    @potential_moves = nil
   end
 
   def in_moveset?(move, board_state)
@@ -21,21 +23,34 @@ class Rook
         return true
       end
     end
-
-    #TODO ensure no pieces are in path except potentially at the finish pos
     false
   end
 
   def path_clear?(move, board_state)
+    #TODO check the final square to see if it's an enemy piece
     if move[0][0] == move[1][0]
       if move[0][1] < move[1][1]
         start = move[0][1] + 1
         start.upto(move[1][1]) do |space|
+          if space == move[1][1]
+            return false if landing_piece_is_white?(@is_white, move[0][0], space, board_state)
+            return true
+          elsif space == move[1][1]
+            return false unless landing_piece_is_white?(@is_white, move[0][0], space, board_state)
+            return true
+          end
           return false unless board_state[convert_number_to_position([move[0][0], space]).to_sym].nil?
         end
       elsif move[0][1] > move[1][1]
         start = move[0][1] - 1
         start.downto(move[1][1]) do |space|
+          if space == move[1][1]
+            return false if landing_piece_is_white?(@is_white, move[0][0], space, board_state)
+            return true
+          elsif space == move[1][1]
+            return false unless landing_piece_is_white?(@is_white, move[0][0], space, board_state)
+            return true
+          end
           return false unless board_state[convert_number_to_position([move[0][0], space]).to_sym].nil?
         end
       end
@@ -43,11 +58,25 @@ class Rook
       if move[0][0] < move[1][0]
         start = move[0][0] + 1
         start.upto(move[1][0]) do |space|
+          if space == move[1][0]
+            return false if landing_piece_is_white?(@is_white, space, move[0][1], board_state)
+            return true
+          elsif space == move[1][0]
+            return false unless landing_piece_is_white?(@is_white, space, move[0][1], board_state)
+            return true
+          end
           return false unless board_state[convert_number_to_position([space, move[0][1]]).to_sym].nil?
         end
       elsif move[0][0] > move[1][0]
         start = move[0][0] - 1
         start.downto(move[1][0]) do |space|
+          if space == move[1][0]
+            return false if landing_piece_is_white?(@is_white, space, move[0][1], board_state)
+            return true
+          elsif space == move[1][0]
+            return false unless landing_piece_is_white?(@is_white, space, move[0][1], board_state)
+            return true
+          end
           return false unless board_state[convert_number_to_position([space, move[0][1]]).to_sym].nil?
         end
       end

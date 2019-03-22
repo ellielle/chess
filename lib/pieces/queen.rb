@@ -7,6 +7,7 @@ class Queen
     @position = position
     @icon = is_white ? "Q".white : "Q".black
     @is_white = is_white
+    @potential_moves = nil
   end
 
   def in_moveset?(move, board_state)

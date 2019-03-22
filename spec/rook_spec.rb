@@ -31,5 +31,13 @@ describe Rook do
         expect(board_state["a1".to_sym].in_moveset?([[2,2], [6,2]], board_state)).to be_falsey
       end
     end
+    context "when the landing space has the other place's piece" do
+      it "returns true" do
+        expect(board_state["a1".to_sym].in_moveset?([[1,3], [1,7]], board_state)).to be_truthy
+        expect(board_state["a8".to_sym].in_moveset?([[1,7], [1,3]], board_state)).to be_truthy
+        expect(board_state["a1".to_sym].in_moveset?([[1,3], [5,3]], board_state)).to be_truthy
+        expect(board_state["a8".to_sym].in_moveset?([[5,3], [1,3]], board_state)).to be_truthy
+      end
+    end
   end
 end

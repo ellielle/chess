@@ -13,12 +13,12 @@ describe Knight do
   describe "#in_moveset?" do
     context "when chosen move is allowed" do
       it "returns true" do
-        expect(board_state["b1".to_sym].in_moveset?([[2,1], [3,3]])).to be_truthy
+        expect(board_state["b1".to_sym].in_moveset?([[2,1], [3,3]], board_state)).to be_truthy
       end
     end
     context "when chose move isn't allowed" do
       it "returns false" do
-        expect(board_state["b1".to_sym].in_moveset?([[2,1], [7,4]])).to be_falsey
+        expect(board_state["b1".to_sym].in_moveset?([[2,1], [7,4]], board_state)).to be_falsey
       end
     end
   end

@@ -9,6 +9,7 @@ class Bishop
     @position = position
     @icon = is_white ? "B".white : "B".black
     @is_white = is_white
+    @potential_moves = nil
   end
 
   def in_moveset?(move, board_state)
