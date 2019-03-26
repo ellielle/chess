@@ -17,7 +17,7 @@ class Board
     @player2 = player2
     @board_state = Hash.new(nil)
     @game_over = {checkmate: false, stalemate: false}
-    @check = false
+    @check = false #TODO may need to move to chess.rb
     create_board
     place_pieces
   end
@@ -154,13 +154,7 @@ class Board
 
   def move_in_moveset?(start, finish)
     move = [convert_position_to_number(start), convert_position_to_number(finish)]
-    if @board_state[start.to_sym].is_a?(Rook) || @board_state[start.to_sym].is_a?(Bishop) ||
-        @board_state[start.to_sym].is_a?(Queen)
-      board = @board_state
-      in_moveset = @board_state[start.to_sym].in_moveset?(move, board)
-    else
-      in_moveset = @board_state[start.to_sym].in_moveset?(move)
-    end
+    in_moveset = @board_state[start.to_sym].in_moveset?(move, board_state = @board_state)
   end
 
   def move_piece(move)
@@ -171,6 +165,7 @@ class Board
     @board_state[move[1].to_sym].position = finish
     @board_state[move[0].to_sym] = nil
     #TODO add call to moved piece's potential_moves method to check for 'check' status
+    @board_state[finish].find_potential_moves(board_state = @board_state)
   end
 
   def promote_pawn(pawn)
