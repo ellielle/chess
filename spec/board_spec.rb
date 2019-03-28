@@ -55,7 +55,7 @@ describe Board do
       end
     end
   end
-  xdescribe "#move_piece" do
+  describe "#move_piece" do
     context "when using the move b2 to b4" do
       it "moves the pawn at b2 to b4" do
         subject.move_piece("b2, b4")
