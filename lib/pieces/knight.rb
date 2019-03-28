@@ -18,9 +18,20 @@ class Knight
 
   def in_moveset?(move, board_state)
     @moves.each do |moveset|
-      if move[0][0] + moveset[0] == move[1][0] && move[0][1] + moveset[1] == move[1][1]
+      if move[0][0] + moveset[0] == move[1][0] && move[0][1] + moveset[1] == move[1][1] &&
+          path_clear?(move[1], board_state)
         return true
       end
+    end
+    false
+  end
+
+  def path_clear?(move, board_state)
+    move_to_sym = convert_number_to_position(move).to_sym
+    if @is_white
+      return true if board_state[move_to_sym].nil? || !board_state[move_to_sym].is_white
+    else
+      return true if board_state[move_to_sym].nil? || board_state[move_to_sym].is_white
     end
     false
   end
