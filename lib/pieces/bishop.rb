@@ -18,4 +18,8 @@ class Bishop
     #TODO make sure diagonal moves are the same number or invalid move
     #TODO ensure no pieces are in path except potentially at the finish pos
   end
+
+  def find_potential_moves(board_state)
+    @potential_moves = potential_moves(@moves, @position, @is_white, board_state)
+  end
 end

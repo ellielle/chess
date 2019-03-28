@@ -165,6 +165,8 @@ class Board
     @board_state[move[1].to_sym].position = finish
     @board_state[move[0].to_sym] = nil
     #TODO add call to moved piece's potential_moves method to check for 'check' status
+    # check in that piece's move list, or check all pieces move list
+    # and / or check that the piece doesn't exist anymore
     @board_state[finish].find_potential_moves(board_state = @board_state)
   end
 

@@ -19,4 +19,8 @@ class King
     # check if any of them is_a?(King) and probably check color
     # no need to build list until pieces start moving
   end
+
+  def find_potential_moves(board_state)
+    @potential_moves = potential_moves(@moves, @position, @is_white, board_state)
+  end
 end

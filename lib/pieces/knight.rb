@@ -20,4 +20,8 @@ class Knight
     end
     false
   end
+
+  def find_potential_moves(board_state)
+    @potential_moves = potential_moves(@moves, @position, @is_white, board_state)
+  end
 end
