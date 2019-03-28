@@ -167,7 +167,7 @@ class Board
     #TODO add call to moved piece's potential_moves method to check for 'check' status
     # check in that piece's move list, or check all pieces move list
     # and / or check that the piece doesn't exist anymore
-    @board_state[finish].find_potential_moves(board_state = @board_state)
+    @board_state[convert_number_to_position(finish).to_sym].find_potential_moves(board_state = @board_state)
   end
 
   def promote_pawn(pawn)
