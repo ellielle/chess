@@ -1,6 +1,10 @@
 require_relative '../../lib/board'
+require_relative '../../lib/convert'
+require_relative '../../lib/piece_methods'
 
 class Knight
+  include ConvertCoordinates, PieceMethods
+
   attr_accessor :position
   attr_reader :moves, :icon, :is_white
 

@@ -1,6 +1,10 @@
 require_relative '../../lib/board'
+require_relative '../../lib/convert'
+require_relative '../../lib/piece_methods'
 
 class Bishop
+  include ConvertCoordinates, PieceMethods
+
   attr_accessor :position
   attr_reader :moves, :icon, :is_white
 
@@ -10,6 +14,15 @@ class Bishop
     @icon = is_white ? "B".white : "B".black
     @is_white = is_white
     @potential_moves = nil
+  end
+
+  def create_moveset
+    moves = []
+    1.upto(7) { |num| moves << [num, num] }
+    1.upto(7) { |num| moves << [num, -(num.abs)] }
+    1.upto(7) { |num| moves << [-(num.abs), num] }
+    -1.downto(-7) { |num| moves << [num, num] }
+    moves
   end
 
   def in_moveset?(move, board_state)
