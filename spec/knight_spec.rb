@@ -1,7 +1,7 @@
 require "pieces/knight"
 
 describe Knight do
-  subject(:board) { Board.new("Ellie", "Canada") }
+  subject(:board) { Board.new("p1", "p2") }
   let(:board_state) { subject.instance_variable_get(:@board_state) }
   describe "initializing to correct color" do
     context "when first player" do
