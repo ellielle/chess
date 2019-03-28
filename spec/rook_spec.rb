@@ -42,7 +42,7 @@ describe Rook do
   end
   describe "#find_potential_moves" do
     context "when called on a fresh board" do
-      it "returns and empty list since the rook is stuck" do
+      it "returns an empty list since the rook is stuck" do
         expect(board_state[:a1].find_potential_moves(board_state)).to be_empty
       end
     end
