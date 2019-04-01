@@ -27,7 +27,6 @@ class Rook
   end
 
   def path_clear?(move, board_state)
-    #TODO check the final square to see if it's an enemy piece
     if move[0][0] == move[1][0]
       if move[0][1] < move[1][1]
         start = move[0][1] + 1
