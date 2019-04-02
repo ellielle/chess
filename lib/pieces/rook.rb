@@ -31,10 +31,10 @@ class Rook
       if move[0][1] < move[1][1]
         start = move[0][1] + 1
         start.upto(move[1][1]) do |space|
-          if space == move[1][1]
+          if space == move[1][1] && is_white
             return false if landing_piece_is_white?(@is_white, move[0][0], space, board_state)
             return true
-          elsif space == move[1][1]
+          elsif space == move[1][1] && !is_white
             return false unless landing_piece_is_white?(@is_white, move[0][0], space, board_state)
             return true
           end
@@ -43,10 +43,10 @@ class Rook
       elsif move[0][1] > move[1][1]
         start = move[0][1] - 1
         start.downto(move[1][1]) do |space|
-          if space == move[1][1]
+          if space == move[1][1] && is_white
             return false if landing_piece_is_white?(@is_white, move[0][0], space, board_state)
             return true
-          elsif space == move[1][1]
+          elsif space == move[1][1] && !is_white
             return false unless landing_piece_is_white?(@is_white, move[0][0], space, board_state)
             return true
           end
@@ -57,10 +57,10 @@ class Rook
       if move[0][0] < move[1][0]
         start = move[0][0] + 1
         start.upto(move[1][0]) do |space|
-          if space == move[1][0]
+          if space == move[1][0] && is_white
             return false if landing_piece_is_white?(@is_white, space, move[0][1], board_state)
             return true
-          elsif space == move[1][0]
+          elsif space == move[1][0] && !is_white
             return false unless landing_piece_is_white?(@is_white, space, move[0][1], board_state)
             return true
           end
@@ -69,10 +69,10 @@ class Rook
       elsif move[0][0] > move[1][0]
         start = move[0][0] - 1
         start.downto(move[1][0]) do |space|
-          if space == move[1][0]
+          if space == move[1][0] && is_white
             return false if landing_piece_is_white?(@is_white, space, move[0][1], board_state)
             return true
-          elsif space == move[1][0]
+          elsif space == move[1][0] && !is_white
             return false unless landing_piece_is_white?(@is_white, space, move[0][1], board_state)
             return true
           end
