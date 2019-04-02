@@ -1,12 +1,10 @@
 module PieceMethods
   def landing_piece_is_white?(is_white, move, space, board_state)
-    if is_white && !board_state[convert_number_to_position([move, space]).to_sym].nil?
-      return true if board_state[convert_number_to_position([move, space]).to_sym].is_white
-      return false
-    elsif !is_white && !board_state[convert_number_to_position([move, space]).to_sym].nil?
-      return true unless board_state[convert_number_to_position([move, space]).to_sym].is_white
-      return false
+    pos = convert_number_to_position([move, space]).to_sym
+    unless board_state[pos].nil?
+      return true if board_state[pos].is_white
     end
+    false
   end
 
   def potential_moves(moves, position, is_white, board_state)
