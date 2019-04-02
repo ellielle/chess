@@ -11,7 +11,7 @@ describe Rook do
     end
     context "when moving down the board as a black piece" do
       it "returns true" do
-        expect(board_state[:a8].in_moveset?([[1,7], [1,3]], board_state)).to be_truthy
+        expect(board_state[:a8].in_moveset?([[1,7], [1,2]], board_state)).to be_truthy
       end
     end
     context "when moving to the right of the board" do
@@ -34,9 +34,9 @@ describe Rook do
     context "when the landing space has the other player's piece" do
       it "returns true" do
         expect(board_state[:a1].in_moveset?([[1,3], [1,7]], board_state)).to be_truthy
-        expect(board_state[:a8].in_moveset?([[1,7], [1,3]], board_state)).to be_truthy
+        expect(board_state[:a8].in_moveset?([[1,7], [1,2]], board_state)).to be_truthy
         expect(board_state[:a1].in_moveset?([[1,3], [5,3]], board_state)).to be_truthy
-        expect(board_state[:a8].in_moveset?([[5,3], [1,3]], board_state)).to be_truthy
+        expect(board_state[:a8].in_moveset?([[5,2], [4,2]], board_state)).to be_truthy
       end
     end
   end
