@@ -20,9 +20,9 @@ class Chess
   def player_names
     #TODO remove names and add prompt for names
     puts "Enter player 1's name: "
-    @player1 = "Ellie"
+    @player1 = "p1"
     puts "Now enter player 2's name: "
-    @player2 = "Canada"
+    @player2 = "p2"
     [@player1, @player2]
   end
 
