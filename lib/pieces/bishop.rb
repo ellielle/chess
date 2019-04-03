@@ -36,11 +36,6 @@ class Bishop
   end
 
   def path_clear?(move, board_state)
-    #TODO ensure no pieces are in path except potentially at the finish pos
-    # +,+ -> right, up
-    # +,- -> right, down
-    # -,+ -> left, up
-    # -,- -> left, down
     if move[0][0] > move[1][0] && move[0][1] > move[1][1]
       start = move[0][0] - 1
       y_pos = move[0][1] - 1
