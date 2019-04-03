@@ -9,7 +9,7 @@ class Bishop
   attr_reader :moves, :icon, :is_white
 
   def initialize(position, is_white)
-    @moves = [[1..7, 1..7], [-7..-1, -7..-1], [1..7, -7..-1], [-7..-1, 1..7]]
+    @moves = create_moveset
     @position = position
     @icon = is_white ? "B".white : "B".black
     @is_white = is_white
@@ -26,10 +26,78 @@ class Bishop
   end
 
   def in_moveset?(move, board_state)
-    #TODO change moveset like rook.rb
+    @moves.each do |moveset|
+      if move[0][0] + moveset[0] == move[1][0] && move[0][1] + moveset[1] == move[1][1] &&
+          path_clear?(move, board_state)
+        return true
+      end
+    end
+    false
+  end
 
-    #TODO make sure diagonal moves are the same number or invalid move
+  def path_clear?(move, board_state)
     #TODO ensure no pieces are in path except potentially at the finish pos
+    # +,+ -> right, up
+    # +,- -> right, down
+    # -,+ -> left, up
+    # -,- -> left, down
+    if move[0][0] > move[1][0] && move[0][1] > move[1][1]
+      start = move[0][0] - 1
+      y_pos = move[0][1] - 1
+      start.downto(move[1][0]) do |space|
+        if [space, y_pos] == move[1] && is_white
+          return false if landing_piece_is_white?(@is_white, space, y_pos, board_state)
+          return true
+        elsif [space, y_pos] == move[1] && !is_white
+          return false unless landing_piece_is_white?(@is_white, space, y_pos, board_state)
+          return true
+        end
+        return false unless board_state[convert_number_to_position([space, y_pos]).to_sym].nil?
+        y_pos -= 1
+      end
+    elsif move[0][0] < move[1][0] && move[0][1] < move[1][1]
+      start = move[0][0] + 1
+      y_pos = move[0][1] + 1
+      start.upto(move[1][0]) do |space|
+        if [space, y_pos] == move[1] && is_white
+          return false if landing_piece_is_white?(@is_white, space, y_pos, board_state)
+          return true
+        elsif [space, y_pos] == move[1] && !is_white
+          return false unless landing_piece_is_white?(@is_white, space, y_pos, board_state)
+          return true
+        end
+        return false unless board_state[convert_number_to_position([space, y_pos]).to_sym].nil?
+        y_pos += 1
+      end
+    elsif move[0][0] < move[1][0] && move[0][1] > move[1][1]
+      start = move[0][0] + 1
+      y_pos = move[0][1] - 1
+      start.upto(move[1][0]) do |space|
+        if [space, y_pos] == move[1] && is_white
+          return false if landing_piece_is_white?(@is_white, space, y_pos, board_state)
+          return true
+        elsif [space, y_pos] == move[1] && !is_white
+          return false unless landing_piece_is_white?(@is_white, space, y_pos, board_state)
+          return true
+        end
+        return false unless board_state[convert_number_to_position([space, y_pos]).to_sym].nil?
+        y_pos -= 1
+      end
+    elsif move[0][0] > move[1][0] && move[0][1] < move[1][1]
+      start = move[0][0] - 1
+      y_pos = move[0][1] + 1
+      start.downto(move[1][0]) do |space|
+        if [space, y_pos] == move[1] && is_white
+          return false if landing_piece_is_white?(@is_white, space, y_pos, board_state)
+          return true
+        elsif [space, y_pos] == move[1] && !is_white
+          return false unless landing_piece_is_white?(@is_white, space, y_pos, board_state)
+          return true
+        end
+        return false unless board_state[convert_number_to_position([space, y_pos]).to_sym].nil?
+        y_pos += 1
+      end
+    end
   end
 
   def find_potential_moves(board_state)
