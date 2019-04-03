@@ -17,10 +17,18 @@ class Queen
   end
 
   def in_moveset?(move, board_state)
-    #TODO change moveset like rook.rb
+    @moves.each do |moveset|
+      if move[0][0] + moveset[0] == move[1][0] && move[0][1] + moveset[1] == move[1][1] &&
+          path_clear?(move, board_state)
+        return true
+      end
+    end
+    false
+  end
 
-    #TODO make sure diagonal moves are the same number or invalid move
-    #TODO ensure no pieces are in path except potentially at the finish pos
+  def path_clear?(move, board_state)
+    horizontal_path_clear?(move, board_state) || diagonal_path_clear?(move, board_state) ?
+        true : false
   end
 
   def create_moveset
