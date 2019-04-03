@@ -25,7 +25,6 @@ class Board
   def create_board
     ('a'..'h').each do |horizontal|
       (1..8).each do |vertical|
-        #TODO board is printing backwards
         @board_state["#{horizontal + vertical.to_s}".to_sym] = nil
       end
     end
@@ -125,9 +124,6 @@ class Board
     return false unless player_owns_piece?(start, turn)
     return false unless space_empty?(finish) #TODO empty or enemy
     return false unless move_in_moveset?(start, finish)
-    #TODO validate_move with moveset
-    #TODO ensure space is either empty or piece is other color and can be taken
-
     true
   end
 
