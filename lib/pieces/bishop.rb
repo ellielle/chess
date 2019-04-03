@@ -36,63 +36,7 @@ class Bishop
   end
 
   def path_clear?(move, board_state)
-    if move[0][0] > move[1][0] && move[0][1] > move[1][1]
-      start = move[0][0] - 1
-      y_pos = move[0][1] - 1
-      start.downto(move[1][0]) do |space|
-        if [space, y_pos] == move[1] && is_white
-          return false if landing_piece_is_white?(@is_white, space, y_pos, board_state)
-          return true
-        elsif [space, y_pos] == move[1] && !is_white
-          return false unless landing_piece_is_white?(@is_white, space, y_pos, board_state)
-          return true
-        end
-        return false unless board_state[convert_number_to_position([space, y_pos]).to_sym].nil?
-        y_pos -= 1
-      end
-    elsif move[0][0] < move[1][0] && move[0][1] < move[1][1]
-      start = move[0][0] + 1
-      y_pos = move[0][1] + 1
-      start.upto(move[1][0]) do |space|
-        if [space, y_pos] == move[1] && is_white
-          return false if landing_piece_is_white?(@is_white, space, y_pos, board_state)
-          return true
-        elsif [space, y_pos] == move[1] && !is_white
-          return false unless landing_piece_is_white?(@is_white, space, y_pos, board_state)
-          return true
-        end
-        return false unless board_state[convert_number_to_position([space, y_pos]).to_sym].nil?
-        y_pos += 1
-      end
-    elsif move[0][0] < move[1][0] && move[0][1] > move[1][1]
-      start = move[0][0] + 1
-      y_pos = move[0][1] - 1
-      start.upto(move[1][0]) do |space|
-        if [space, y_pos] == move[1] && is_white
-          return false if landing_piece_is_white?(@is_white, space, y_pos, board_state)
-          return true
-        elsif [space, y_pos] == move[1] && !is_white
-          return false unless landing_piece_is_white?(@is_white, space, y_pos, board_state)
-          return true
-        end
-        return false unless board_state[convert_number_to_position([space, y_pos]).to_sym].nil?
-        y_pos -= 1
-      end
-    elsif move[0][0] > move[1][0] && move[0][1] < move[1][1]
-      start = move[0][0] - 1
-      y_pos = move[0][1] + 1
-      start.downto(move[1][0]) do |space|
-        if [space, y_pos] == move[1] && is_white
-          return false if landing_piece_is_white?(@is_white, space, y_pos, board_state)
-          return true
-        elsif [space, y_pos] == move[1] && !is_white
-          return false unless landing_piece_is_white?(@is_white, space, y_pos, board_state)
-          return true
-        end
-        return false unless board_state[convert_number_to_position([space, y_pos]).to_sym].nil?
-        y_pos += 1
-      end
-    end
+    diagonal_path_clear?(move, board_state)
   end
 
   def find_potential_moves(board_state)
