@@ -1,6 +1,6 @@
 require 'chess'
 require 'board'
-
+=begin
 describe Chess do
   subject(:chess) { Chess.new }
   describe "#game_end" do
@@ -12,3 +12,4 @@ describe Chess do
     end
   end
 end
+=end
