@@ -7,10 +7,6 @@ module ConvertCoordinates
 
   def convert_number_to_position(move)
     hsh = { "1": "a", "2": "b", "3": "c", "4": "d", "5": "e", "6": "f", "7": "g", "8": "h" }
-    if move[0] <= 0
-      position = "z#{move[1].to_s}"
-    else
-      position = hsh[move[0].to_s.to_sym] + move[1].to_s
-    end
+    position = hsh[move[0].to_s.to_sym] + move[1].to_s
   end
 end
