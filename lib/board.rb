@@ -16,8 +16,8 @@ class Board
     @player1 = player1
     @player2 = player2
     @board_state = Hash.new(nil)
-    @game_over = {checkmate: false, stalemate: false}
-    @check = false #TODO may need to move to chess.rb
+    @game_over = {checkmate: false, stalemate: false} #TODO
+    @check = false #TODO
     create_board
     place_pieces
   end
@@ -122,7 +122,7 @@ class Board
     return false unless space_exists?(start)
     return false unless space_exists?(finish)
     return false unless player_owns_piece?(start, turn)
-    return false unless space_empty?(finish) #TODO empty or enemy
+    return false unless space_empty_or_enemy?(start, finish)
     return false unless move_in_moveset?(start, finish)
     true
   end
@@ -143,8 +143,12 @@ class Board
     false
   end
 
-  def space_empty?(position)
-    return true if @board_state[position.to_sym].nil?
+  def space_empty_or_enemy?(piece, position)
+    if @board_state[piece.to_sym].is_white
+      return true if @board_state[position.to_sym].nil? || !@board_state[position.to_sym].is_white
+    elsif !@board_state[piece.to_sym].is_white
+      return true if @board_state[position.to_sym].nil? || @board_state[position.to_sym].is_white
+    end
     false
   end
 
@@ -156,14 +160,18 @@ class Board
   def move_piece(move)
     move = split_move_into_array(move)
     @board_state[move[1].to_sym] = @board_state[move[0].to_sym]
-    finish = convert_position_to_number(move[1])
-    #TODO add piece taking method here
-    @board_state[move[1].to_sym].position = finish
+    @board_state[move[1].to_sym].position = convert_position_to_number(move[1])
     @board_state[move[0].to_sym] = nil
     #TODO add call to moved piece's potential_moves method to check for 'check' status
     # check in that piece's move list, or check all pieces move list
     # and / or check that the piece doesn't exist anymore
-    @board_state[convert_number_to_position(finish).to_sym].find_potential_moves(board_state = @board_state)
+    @board_state[move[1].to_sym].find_potential_moves(board_state = @board_state)
+    @check = in_check?(move[1])
+  end
+
+  def in_check?(piece)
+    #sleep 1
+    #return true if @board_state[piece.to_sym].potential_moves.value?(King)
   end
 
   def promote_pawn(pawn)
