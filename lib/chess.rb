@@ -31,13 +31,12 @@ class Chess
     valid_move = false
     loop do
       game_end(true) if move == "exit"
+      system("cls")
       @game.display
       until valid_move
         puts "\n#{@turn[0]}'s turn. Enter your move in the format: 'b2, b4':"
-        #TODO replace with gets for user input
-        move = "c1, e3"
-        move = "b7, b5" if @turn[0] == "Canada"
-        #TODO above
+        #TODO gets.chomp
+        move = "b1, c3"
         valid_move = @game.valid_move?(move, @turn[0])
         @game.move_piece(move) if valid_move
         invalid_move_text unless valid_move
