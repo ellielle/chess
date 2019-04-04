@@ -6,7 +6,7 @@ class Pawn
   include ConvertCoordinates, PieceMethods
 
   attr_accessor :position
-  attr_reader :moves, :icon, :is_white
+  attr_reader :moves, :icon, :is_white, :potential_moves
 
   def initialize(position, is_white)
     @moves = is_white ? white_moves : black_moves
@@ -92,6 +92,6 @@ class Pawn
   end
 
   def find_potential_moves(board_state)
-    @potential_moves = potential_moves(@moves, @position, @is_white, board_state)
+    @potential_moves = potential_move_list(@moves, @position, @is_white, board_state)
   end
 end

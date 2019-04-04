@@ -6,7 +6,7 @@ class King
   include ConvertCoordinates, PieceMethods
 
   attr_accessor :position
-  attr_reader :moves, :icon, :is_white
+  attr_reader :moves, :icon, :is_white, :potential_moves
 
   def initialize(position, is_white)
     @moves = [[0,1], [1,1], [1,0], [0,-1], [-1,-1], [-1,0], [-1,1], [1,-1]]
@@ -41,6 +41,6 @@ class King
   end
 
   def find_potential_moves(board_state)
-    @potential_moves = potential_moves(@moves, @position, @is_white, board_state)
+    @potential_moves = potential_move_list(@moves, @position, @is_white, board_state)
   end
 end
