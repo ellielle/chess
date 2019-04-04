@@ -59,7 +59,7 @@ describe Bishop do
       end
     end
     context "when called without pawn in the way" do
-      it "returns the list of empty spaces that are valid moves" do
+      it "returns the list of spaces that are valid moves" do
         board_state[:b2] = nil
         board_state[:d2] = nil
         board_state[:b7] = nil

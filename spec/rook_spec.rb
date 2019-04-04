@@ -47,7 +47,7 @@ describe Rook do
       end
     end
     context "when called without pawn in the way" do
-      it "returns the empty spaces above it" do
+      it "returns the spaces above it that are valid" do
         board_state[:a2] = nil
         expect(board_state[:a1].find_potential_moves(board_state)).to have_key([1,4])
         expect(board_state[:a1].find_potential_moves(board_state)).to have_key([1,5])

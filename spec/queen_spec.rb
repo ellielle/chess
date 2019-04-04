@@ -71,7 +71,7 @@ describe Queen do
       end
     end
     context "when called without any pieces in the way" do
-      it "returns the list of empty spaces that are valid moves" do
+      it "returns the list of spaces that are valid moves" do
         board_state[:d2] = nil
         board_state[:c2] = nil
         board_state[:e2] = nil
