@@ -10,7 +10,7 @@ module PieceMethods
     end
   end
 
-  def potential_moves(moves, position, is_white, board_state)
+  def potential_move_list(moves, position, is_white, board_state)
     return potential_pawn_moves(moves, position, is_white, board_state) if self.is_a?(Pawn)
     possible_moves = {}
     moves.each do |move|
