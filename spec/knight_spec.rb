@@ -33,4 +33,19 @@ describe Knight do
       end
     end
   end
+  describe "#find_potential_moves" do
+    context "when called on a fresh board" do
+      it "returns the two possible moves" do
+        expect(board_state[:b1].find_potential_moves(board_state)).to have_key([1, 3])
+        expect(board_state[:b1].find_potential_moves(board_state)).to have_key([3, 3])
+      end
+    end
+    context "when called after a move to a3" do
+      it "returns the list of spaces that are valid moves" do
+        board_state[:b1].position = [1, 3]
+        expect(board_state[:b1].find_potential_moves(board_state)).to have_key([3, 4])
+        expect(board_state[:b1].find_potential_moves(board_state)).to have_key([2, 5])
+      end
+    end
+  end
 end
