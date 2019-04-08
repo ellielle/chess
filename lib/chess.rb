@@ -30,17 +30,20 @@ class Chess
     move = nil
     valid_move = false
     loop do
-      game_end(true) if move == "exit"
       system("cls")
       @game.display
-      until valid_move
+      until valid_move && @game.check == false
         puts "\n#{@turn[0]}'s turn. Enter your move in the format: 'b2, b4':"
+        puts "\n#{@turn[0]}'s King is in check!" if @game.check
         #TODO gets.chomp
         move = "b1, c3"
+        game_end(true) if move == "exit"
+        save_game if move == "save"
         valid_move = @game.valid_move?(move, @turn[0])
         @game.move_piece(move) if valid_move
         invalid_move_text unless valid_move
       end
+      @game.in_check?(@turn[1] == @player1 ? "p1" : "p2")
       change_turn
       valid_move = false
     end
