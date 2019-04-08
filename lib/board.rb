@@ -18,6 +18,7 @@ class Board
     @board_state = Hash.new(nil)
     @game_over = {checkmate: false, stalemate: false} #TODO
     @check = false #TODO
+    @last_move = nil
     create_board
     place_pieces
   end
@@ -162,16 +163,49 @@ class Board
     @board_state[move[1].to_sym] = @board_state[move[0].to_sym]
     @board_state[move[1].to_sym].position = convert_position_to_number(move[1])
     @board_state[move[0].to_sym] = nil
-    #TODO add call to moved piece's potential_moves method to check for 'check' status
-    # check in that piece's move list, or check all pieces move list
-    # and / or check that the piece doesn't exist anymore
     @board_state[move[1].to_sym].find_potential_moves(board_state = @board_state)
-    @check = in_check?(move[1])
+    @last_move = @board_state[move[1].to_sym]
   end
 
-  def in_check?(piece)
-    #sleep 1
-    #return true if @board_state[piece.to_sym].potential_moves.value?(King)
+  def in_check?(turn)
+    @last_move.potential_moves.each_value do |value|
+      if value.is_a?(King)
+        @check = true
+        check_checkmate?(turn) ? @game_over[:checkmate] = true : return
+      end
+    end
+    false
+  end
+
+  def check_checkmate?(turn)
+    #TODO check_moves may need to be hash
+    #TODO King#potential_moves needs to be run each time a piece moves
+    # ^
+    # ^
+    # ^
+    check_moves = []
+    king = nil
+    @board_state.each_value do |piece|
+      next if piece.nil?
+      unless piece.is_a?(King)
+        check_moves << piece&.potential_moves&.compact
+      end
+      if piece.is_a?(King)
+        if piece.is_white && turn == "p1"
+          king = piece.potential_moves
+        elsif !piece.is_white && turn == "p2"
+          king = piece.potential_moves
+        end
+      end
+    end
+    check_moves.compact!.uniq!
+    begin
+      king.each do |position|
+        king.shift if check_moves.include?(position)
+      end
+    ensure
+      king.empty? ? true : false
+    end
   end
 
   def promote_pawn(pawn)
