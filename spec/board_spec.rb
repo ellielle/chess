@@ -76,7 +76,7 @@ describe Board do
     end
   end
   describe "#in_check?" do
-    context "when a player's King is able to be taken on the other player's next move" do
+    context "when a player's King is in check" do
       it "returns true" do
         board_state.each do |k,v|
           unless v.is_a?(King) || v.is_a?(Queen) || v.nil?
@@ -88,6 +88,52 @@ describe Board do
         board_state[:f7].position = [6, 7]
         subject.move_piece("f7, f8")
         expect(subject.in_check?("p1")).to be_truthy
+      end
+    end
+    context "when #check_checkmate returns true" do
+      it "calls #game_end and announces the winner" do
+        board_state.each do |k,v|
+          unless v.is_a?(King)
+            board_state[k] = nil
+          end
+        end
+        subject.move_piece("e8, d8")
+        subject.move_piece("d8, e8")
+        board_state[:c8] = Rook.new([3, 8], true)
+        subject.move_piece("c8, d8")
+        board_state[:c7] = Rook.new([3, 7], true)
+        subject.move_piece("c7, d7")
+        board_state[:g8] = Rook.new([7, 8], true)
+        subject.move_piece("g8, f8")
+        board_state[:g7] = Rook.new([7, 7], true)
+        subject.move_piece("g7, f7")
+        board_state[:e6] = Rook.new([6, 6], true)
+        subject.move_piece("e6, e7")
+        expect(subject.in_check?("p1")).to be_truthy
+      end
+    end
+  end
+  describe "#check_checkmate?" do
+    context "when a player's King is unable to move" do
+      it "returns true" do
+        board_state.each do |k,v|
+          unless v.is_a?(King)
+            board_state[k] = nil
+          end
+        end
+        subject.move_piece("e8, d8")
+        subject.move_piece("d8, e8")
+        board_state[:c8] = Rook.new([3, 8], true)
+        subject.move_piece("c8, d8")
+        board_state[:c7] = Rook.new([3, 7], true)
+        subject.move_piece("c7, d7")
+        board_state[:g8] = Rook.new([7, 8], true)
+        subject.move_piece("g8, f8")
+        board_state[:g7] = Rook.new([7, 7], true)
+        subject.move_piece("g7, f7")
+        board_state[:e6] = Rook.new([6, 6], true)
+        subject.move_piece("e6, e7")
+        expect(subject.check_checkmate?("p2")).to be_truthy
       end
     end
   end
