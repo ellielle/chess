@@ -6,7 +6,6 @@ class Chess
   def initialize
     @player1 = nil
     @player2 = nil
-    @winner = nil
     intro
     @turn = player_names
     @game = Board.new(@player1, @player2)
@@ -37,7 +36,7 @@ class Chess
         puts "\n#{@turn[0]}'s King is in check!" if @game.check
         #TODO gets.chomp
         move = "b1, c3"
-        game_end(true) if move == "exit"
+        exit_game(true) if move == "exit"
         save_game if move == "save"
         valid_move = @game.valid_move?(move, @turn[0])
         @game.move_piece(move) if valid_move
@@ -47,12 +46,9 @@ class Chess
       change_turn
       valid_move = false
     end
-
-
   end
 
-  def game_end(quit = false)
-    puts "#{@winner} has won the game. Press ENTER to exit." unless quit
+  def exit_game(quit = false)
     puts "#{@turn[0]} has forfeited the game. Press ENTER to exit." if quit
     gets
     exit
@@ -63,7 +59,11 @@ class Chess
   end
 
   def load_game; end
-  def save_game; end
+  def save_game
+    #TODO save game
+    puts "Saving game. Press ENTER to exit."
+    exit_game(false)
+  end
 
 end
 #TODO ADD SAVE AND RESUME FUNCTIONALITY

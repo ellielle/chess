@@ -23,6 +23,11 @@ class Board
     place_pieces
   end
 
+  def testing #TODO move into #move_piece
+    @board_state[:e2] = nil
+    King.get_possible_moves(board_state = @board_state)
+  end
+
   def create_board
     ('a'..'h').each do |horizontal|
       (1..8).each do |vertical|
@@ -164,48 +169,53 @@ class Board
     @board_state[move[1].to_sym].position = convert_position_to_number(move[1])
     @board_state[move[0].to_sym] = nil
     @board_state[move[1].to_sym].find_potential_moves(board_state = @board_state)
+    #TODO king#potential_moves needs to run each time a piece moves
     @last_move = @board_state[move[1].to_sym]
+    King.get_possible_moves(board_state = @board_state)
   end
 
   def in_check?(turn)
-    @last_move.potential_moves.each_value do |value|
+    @last_move.potential_moves.compact.each_value do |value|
       if value.is_a?(King)
         @check = true
-        check_checkmate?(turn) ? @game_over[:checkmate] = true : return
+        #TODO return true or return a game end if #check_checkmate? returns true
+        return game_end(turn) if check_checkmate?(turn)
+        return true
       end
     end
     false
   end
 
   def check_checkmate?(turn)
-    #TODO check_moves may need to be hash
-    #TODO King#potential_moves needs to be run each time a piece moves
-    # ^
-    # ^
-    # ^
     check_moves = []
     king = nil
     @board_state.each_value do |piece|
       next if piece.nil?
-      unless piece.is_a?(King)
-        check_moves << piece&.potential_moves&.compact
-      end
       if piece.is_a?(King)
         if piece.is_white && turn == "p1"
           king = piece.potential_moves
         elsif !piece.is_white && turn == "p2"
           king = piece.potential_moves
         end
+      else
+        piece&.potential_moves&.each_key { |k| check_moves.push(k) }
+        check_moves << piece.position
       end
     end
-    check_moves.compact!.uniq!
+    check_moves&.compact!
+    check_moves&.uniq!
     begin
       king.each do |position|
-        king.shift if check_moves.include?(position)
+        king.delete(position[0]) if check_moves.include?(position[0])
       end
     ensure
-      king.empty? ? true : false
+      return true if king.empty?
     end
+    false
+  end
+
+  def game_end(turn)
+    sleep 1
   end
 
   def promote_pawn(pawn)
