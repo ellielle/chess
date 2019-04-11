@@ -8,7 +8,7 @@ require_relative 'string'
 require_relative 'chess_strings'
 
 class Board
-  include ConvertCoordinates
+  include ConvertCoordinates, ChessStrings
 
   attr_reader :game_over, :check, :board_state
 
@@ -169,8 +169,9 @@ class Board
     @board_state[move[1].to_sym].position = convert_position_to_number(move[1])
     @board_state[move[0].to_sym] = nil
     @board_state[move[1].to_sym].find_potential_moves(board_state = @board_state)
-    #TODO king#potential_moves needs to run each time a piece moves
+    #TODO king#get_possible_moves needs to run each time a piece moves
     @last_move = @board_state[move[1].to_sym]
+    promote_pawn_check(move[1]) if @last_move.is_a?(Pawn)
     King.get_possible_moves(board_state = @board_state)
   end
 
@@ -178,8 +179,7 @@ class Board
     @last_move.potential_moves.compact.each_value do |value|
       if value.is_a?(King)
         @check = true
-        #TODO return true or return a game end if #check_checkmate? returns true
-        return game_end(turn) if check_checkmate?(turn)
+        @game_over[:checkmate] = true if check_checkmate?(turn)
         return true
       end
     end
@@ -214,11 +214,45 @@ class Board
     false
   end
 
-  def game_end(turn)
-    sleep 1
+  def game_end
+    #TODO broken, move to chess.rb
+    check_mate_text
+    exit
   end
 
-  def promote_pawn(pawn)
-    #TODO will need to pass specific pawn instance
+  def promote_pawn_check(piece)
+    if @last_move.position[1] == 8 && @last_move.is_white
+      pawn_promotion("white", piece)
+    elsif @last_move.position[1] == 1 && !@last_move.is_white
+      pawn_promotion("black", piece)
+    end
+  end
+
+  def pawn_promotion(color, piece)
+    pos = @last_move.position
+    is_white = color == "white" ? true : false
+    valid_input = false
+    until valid_input
+      valid_input = true
+      pawn_promotion_text
+      piece = gets.chomp
+      case piece.downcase!
+      when 'b'
+        @board_state[piece.to_sym] = Bishop.new(pos, is_white)
+        @board_state[piece.to_sym].find_potential_moves(board_state = @board_state)
+      when 'q'
+        @board_state[piece.to_sym] = Queen.new(pos, is_white)
+        @board_state[piece.to_sym].find_potential_moves(board_state = @board_state)
+      when 'r'
+        @board_state[piece.to_sym] = Rook.new(pos, is_white)
+        @board_state[piece.to_sym].find_potential_moves(board_state = @board_state)
+      when 'k'
+        @board_state[piece.to_sym] = Knight.new(pos, is_white)
+        @board_state[piece.to_sym].find_potential_moves(board_state = @board_state)
+      else
+        puts "Invalid input."
+        valid_input = false
+      end
+    end
   end
 end
