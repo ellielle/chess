@@ -11,7 +11,6 @@ module PieceMethods
   end
 
   def potential_move_list(moves, position, is_white, board_state)
-    return potential_pawn_moves(moves, position, is_white, board_state) if self.is_a?(Pawn)
     possible_moves = {}
     moves.each do |move|
       pos = [move[0] + position[0], move[1] + position[1]]
@@ -19,7 +18,9 @@ module PieceMethods
       next if pos[1] <= 0 || pos[1] > 8
       converted_pos = convert_number_to_position([pos[0], pos[1]]).to_sym
       next unless board_state.key?(converted_pos)
-      next unless self.path_clear?([position, pos], board_state)
+      unless self.is_a?(Pawn)
+        next unless self.path_clear?([position, pos], board_state)
+      end
       if board_state[converted_pos].nil?
         possible_moves[pos] = board_state[converted_pos]
       elsif is_white
@@ -31,10 +32,6 @@ module PieceMethods
       end
     end
     possible_moves
-  end
-
-  def potential_pawn_moves(moves, position, is_white, board_state)
-    #TODO implement
   end
 
   def horizontal_path_clear?(move, board_state)
