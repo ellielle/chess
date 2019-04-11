@@ -10,14 +10,17 @@ module ChessStrings
     puts text.gsub(/^#{text.scan(/^[ \t]+(?=\S)/).min}/, '')
   end
 
-  def pawn_promotion_text; end
-
-  def check_text
-    puts "#{@turn[0]}'s king is in check."
+  def pawn_promotion_text
+    puts "You can now promote this pawn."
+    puts "Enter 'b' for Bishop, 'q' for Queen, 'r' for Rook, or 'k' for Knight."
   end
 
-  def invlaid_move_check_text
-    puts "Invalid move. #{@turn[0]}'s king is still in check."
+  def check_text(turn)
+    puts "#{turn}'s king is in check."
+  end
+
+  def invalid_move_check_text(turn)
+    puts "Invalid move. #{turn}'s king is still in check."
   end
 
   def invalid_move_text
@@ -26,11 +29,14 @@ module ChessStrings
 
   def check_mate_text
     puts "Checkmate! #{@turn[0]} wins! Press ENTER to exit."
-    gets
   end
 
   def stalemate_text
     puts "The game has ended in a stalemate. Press ENTER to exit."
     gets
+  end
+
+  def exit_quit_text
+    puts "#{@turn[0]} has forfeited the game. Press ENTER to exit."
   end
 end
