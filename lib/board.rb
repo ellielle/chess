@@ -160,7 +160,8 @@ class Board
 
   def move_in_moveset?(start, finish)
     move = [convert_position_to_number(start), convert_position_to_number(finish)]
-    in_moveset = @board_state[start.to_sym].in_moveset?(move, board_state = @board_state)
+    @board_state[start.to_sym].in_moveset?(move, board_state = @board_state)
+    #TODO this may break
   end
 
   def move_piece(move)
@@ -212,12 +213,6 @@ class Board
       return true if king.empty?
     end
     false
-  end
-
-  def game_end
-    #TODO broken, move to chess.rb
-    check_mate_text
-    exit
   end
 
   def promote_pawn_check(piece)
