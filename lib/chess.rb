@@ -33,23 +33,34 @@ class Chess
       @game.display
       until valid_move && @game.check == false
         puts "\n#{@turn[0]}'s turn. Enter your move in the format: 'b2, b4':"
-        puts "\n#{@turn[0]}'s King is in check!" if @game.check
+        check_text if @game.check
         #TODO gets.chomp
         move = "b1, c3"
         exit_game(true) if move == "exit"
         save_game if move == "save"
         valid_move = @game.valid_move?(move, @turn[0])
         @game.move_piece(move) if valid_move
-        invalid_move_text unless valid_move
+        if @game.check
+          invalid_move_check_text(@turn[0]) unless valid_move
+        else
+          invalid_move_text unless valid_move
+        end
       end
+      game_end if @game.game_over[:checkmate]
       @game.in_check?(@turn[1] == @player1 ? "p1" : "p2")
       change_turn
       valid_move = false
     end
   end
 
+  def game_end
+    check_mate_text
+    gets
+    exit
+  end
+
   def exit_game(quit = false)
-    puts "#{@turn[0]} has forfeited the game. Press ENTER to exit." if quit
+    exit_quit_text if quit
     gets
     exit
   end
