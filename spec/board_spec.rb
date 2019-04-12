@@ -149,4 +149,25 @@ describe Board do
       end
     end
   end
+  describe "stalemate?" do
+    context "when a player has no legal moves" do
+      it "sets @game_over[:stalemate] to true" do
+        board_state.each { |k, v| board_state[k] = nil unless v.is_a?(King) || v.is_a?(Queen) }
+        board_state[:e8] = nil
+        board_state[:a5] = board_state[:d8]
+        board_state[:d8] = nil
+        board_state[:a5].position = [1, 5]
+        board_state[:c6] = board_state[:e1]
+        board_state[:e1] = nil
+        board_state[:c6].position = [3, 6]
+        board_state[:c4] = board_state[:d1]
+        board_state[:d1] = nil
+        board_state[:c4].position = [3, 4]
+        subject.instance_variable_set(:@player1, "p1")
+        subject.check_stalemate("p2")
+        gameover = subject.instance_variable_get(:@game_over)
+        expect(gameover[:stalemate]).to be_truthy
+      end
+    end
+  end
 end
