@@ -17,11 +17,10 @@ class Chess
   end
 
   def player_names
-    #TODO remove names and add prompt for names
     puts "Enter player 1's name: "
-    @player1 = "p1"
+    @player1 = gets.chomp
     puts "Now enter player 2's name: "
-    @player2 = "p2"
+    @player2 = gets.chomp
     [@player1, @player2]
   end
 
@@ -33,9 +32,8 @@ class Chess
       @game.display
       until valid_move && @game.check == false
         puts "\n#{@turn[0]}'s turn. Enter your move in the format: 'b2, b4':"
-        check_text if @game.check
-        #TODO gets.chomp
-        move = "b1, c3"
+        check_text(@turn[0]) if @game.check
+        move = gets.chomp
         exit_game(true) if move == "exit"
         save_game if move == "save"
         valid_move = @game.valid_move?(move, @turn[0])
@@ -54,13 +52,13 @@ class Chess
   end
 
   def game_end
-    check_mate_text
+    check_mate_text(@turn[0])
     gets
     exit
   end
 
   def exit_game(quit = false)
-    exit_quit_text if quit
+    exit_quit_text(@turn[0]) if quit
     gets
     exit
   end
