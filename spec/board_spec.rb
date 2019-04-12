@@ -137,4 +137,16 @@ describe Board do
       end
     end
   end
+  describe "#pawn_promotion" do
+    context "when a white pawn makes it to the 8th rank" do
+      it "allows user to promote the pawn to another piece" do
+        board_state.each { |k, v| board_state[k] = nil unless v.is_a?(Pawn) && v.is_white }
+        board_state[:a8] = board_state[:a2]
+        board_state[:a8].position = [1, 8]
+        allow(subject).to receive(:gets).and_return('q')
+        subject.promote_pawn_check("a8")
+        expect(board_state[:a8]).to be_a(Queen)
+      end
+    end
+  end
 end
