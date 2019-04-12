@@ -33,7 +33,6 @@ module ChessStrings
 
   def stalemate_text
     puts "The game has ended in a stalemate. Press ENTER to exit."
-    gets
   end
 
   def exit_quit_text(turn)
