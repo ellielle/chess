@@ -16,8 +16,6 @@ class Pawn
     @can_be_en_passant = false
     @first_move = true
     @potential_moves = nil
-    #TODO en passant & promotion
-    #TODO set first_move to false after move
   end
 
   def white_moves
@@ -27,7 +25,7 @@ class Pawn
   def black_moves
     moves = [[0, -1], [0, -2], [-1, -1], [1, -1]]
   end
-#TODO unset enpassant on next move if it's set to true
+
   def in_moveset?(move, board_state)
     finish = convert_number_to_position(move[1])
     return false if move[1][0] < 1 || move[1][0] > 8 || move[1][1] < 0 || move[1][1] > 8

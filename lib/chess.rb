@@ -37,7 +37,7 @@ class Chess
         exit_game(true) if move == "exit"
         save_game if move == "save"
         valid_move = @game.valid_move?(move, @turn[0])
-        @game.move_piece(move) if valid_move
+        @game.move_piece(move, @turn[0] == @player1 ? "p1" : "p2") if valid_move
         if @game.check
           invalid_move_check_text(@turn[0]) unless valid_move
         else

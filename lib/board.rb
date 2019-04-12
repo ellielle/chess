@@ -17,15 +17,10 @@ class Board
     @player2 = player2
     @board_state = Hash.new(nil)
     @game_over = {checkmate: false, stalemate: false} #TODO
-    @check = false #TODO
+    @check = false
     @last_move = nil
     create_board
     place_pieces
-  end
-
-  def testing #TODO move into #move_piece
-    @board_state[:e2] = nil
-    King.get_possible_moves(board_state = @board_state)
   end
 
   def create_board
@@ -161,18 +156,16 @@ class Board
   def move_in_moveset?(start, finish)
     move = [convert_position_to_number(start), convert_position_to_number(finish)]
     @board_state[start.to_sym].in_moveset?(move, board_state = @board_state)
-    #TODO this may break
   end
 
-  def move_piece(move)
+  def move_piece(move, turn)
     move = split_move_into_array(move)
     @board_state[move[1].to_sym] = @board_state[move[0].to_sym]
     @board_state[move[1].to_sym].position = convert_position_to_number(move[1])
     @board_state[move[0].to_sym] = nil
     @board_state[move[1].to_sym].find_potential_moves(board_state = @board_state)
-    #TODO king#get_possible_moves needs to run each time a piece moves
     @last_move = @board_state[move[1].to_sym]
-    promote_pawn_check(move[1]) if @last_move.is_a?(Pawn)
+    promote_pawn_check(move[1]) if @last_move.is_a?(Pawn) && !in_check?(turn)
     King.get_possible_moves(board_state = @board_state)
   end
 
@@ -184,10 +177,12 @@ class Board
         return true
       end
     end
+    @check = false
     false
   end
 
   def check_checkmate?(turn)
+    #TODO fix not allowing a move and immediately calling checkmate
     check_moves = []
     king = nil
     @board_state.each_value do |piece|
