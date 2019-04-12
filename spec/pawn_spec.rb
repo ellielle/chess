@@ -46,7 +46,7 @@ describe Pawn do
         expect(board_state[:c7].in_moveset?([[3,7], [2,6]], board_state)).to be_truthy
       end
     end
-    context "when attempting to take a pice with an invalid move" do
+    context "when attempting to take a piece with an invalid move" do
       it "returns false" do
         board_state[:b3] = board_state[:b7]
         board_state[:b3].position = [2, 3]
