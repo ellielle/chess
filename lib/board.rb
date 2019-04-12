@@ -269,7 +269,7 @@ class Board
     board_state.each_value do |value|
       next if is_white && !value.is_white
       next if !is_white && value.is_white
-      can_move = value.potential_moves.nil? ? false : true
+      can_move = value.potential_moves.empty? ? false : true
     end
     @game_over[:stalemate] = true unless can_move
   end
