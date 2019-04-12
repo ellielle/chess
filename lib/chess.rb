@@ -25,7 +25,6 @@ class Chess
   end
 
   def game_loop
-    move = nil
     valid_move = false
     loop do
       system("cls")
