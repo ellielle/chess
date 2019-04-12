@@ -58,11 +58,11 @@ describe Board do
   describe "#move_piece" do
     context "when using the move b2 to b4" do
       it "moves the pawn at b2 to b4" do
-        subject.move_piece("b2, b4")
+        subject.move_piece("b2, b4", "p1")
         expect(board_state[:b4].position).to eql([2, 4])
       end
       it "removes the pawn from b2" do
-        subject.move_piece("b2, b4")
+        subject.move_piece("b2, b4", "p1")
         expect(board_state[:b2]).to be_nil
       end
     end
@@ -86,7 +86,7 @@ describe Board do
         board_state[:f7] = board_state[:d1]
         board_state[:d1] = nil
         board_state[:f7].position = [6, 7]
-        subject.move_piece("f7, f8")
+        subject.move_piece("f7, f8", "p1")
         expect(subject.in_check?("p1")).to be_truthy
       end
     end
@@ -97,18 +97,18 @@ describe Board do
             board_state[k] = nil
           end
         end
-        subject.move_piece("e8, d8")
-        subject.move_piece("d8, e8")
+        subject.move_piece("e8, d8", "p1")
+        subject.move_piece("d8, e8", "p1")
         board_state[:c8] = Rook.new([3, 8], true)
-        subject.move_piece("c8, d8")
+        subject.move_piece("c8, d8", "p1")
         board_state[:c7] = Rook.new([3, 7], true)
-        subject.move_piece("c7, d7")
+        subject.move_piece("c7, d7", "p1")
         board_state[:g8] = Rook.new([7, 8], true)
-        subject.move_piece("g8, f8")
+        subject.move_piece("g8, f8", "p1")
         board_state[:g7] = Rook.new([7, 7], true)
-        subject.move_piece("g7, f7")
+        subject.move_piece("g7, f7", "p1")
         board_state[:e6] = Rook.new([6, 6], true)
-        subject.move_piece("e6, e7")
+        subject.move_piece("e6, e7", "p1")
         expect(subject.in_check?("p1")).to be_truthy
       end
     end
@@ -121,18 +121,18 @@ describe Board do
             board_state[k] = nil
           end
         end
-        subject.move_piece("e8, d8")
-        subject.move_piece("d8, e8")
+        subject.move_piece("e8, d8", "p1")
+        subject.move_piece("d8, e8", "p1")
         board_state[:c8] = Rook.new([3, 8], true)
-        subject.move_piece("c8, d8")
+        subject.move_piece("c8, d8", "p1")
         board_state[:c7] = Rook.new([3, 7], true)
-        subject.move_piece("c7, d7")
+        subject.move_piece("c7, d7", "p1")
         board_state[:g8] = Rook.new([7, 8], true)
-        subject.move_piece("g8, f8")
+        subject.move_piece("g8, f8", "p1")
         board_state[:g7] = Rook.new([7, 7], true)
-        subject.move_piece("g7, f7")
+        subject.move_piece("g7, f7", "p1")
         board_state[:e6] = Rook.new([6, 6], true)
-        subject.move_piece("e6, e7")
+        subject.move_piece("e6, e7", "p1")
         expect(subject.check_checkmate?("p2")).to be_truthy
       end
     end
