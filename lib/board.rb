@@ -16,7 +16,7 @@ class Board
     @player1 = player1
     @player2 = player2
     @board_state = Hash.new(nil)
-    @game_over = {checkmate: false, stalemate: false} #TODO
+    @game_over = {checkmate: false, stalemate: false}
     @check = false
     @last_move = nil
     create_board
@@ -197,7 +197,6 @@ class Board
   end
 
   def check_checkmate?(turn)
-    #TODO fix not allowing a move and immediately calling checkmate
     check_moves = []
     king = nil
     @board_state.each_value do |piece|
