@@ -27,8 +27,8 @@ module ChessStrings
     puts "Invalid move."
   end
 
-  def check_mate_text
-    puts "Checkmate! #{@turn[0]} wins! Press ENTER to exit."
+  def check_mate_text(turn)
+    puts "Checkmate! #{turn} wins! Press ENTER to exit."
   end
 
   def stalemate_text
@@ -36,7 +36,7 @@ module ChessStrings
     gets
   end
 
-  def exit_quit_text
-    puts "#{@turn[0]} has forfeited the game. Press ENTER to exit."
+  def exit_quit_text(turn)
+    puts "#{turn} has forfeited the game. Press ENTER to exit."
   end
 end
