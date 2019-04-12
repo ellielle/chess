@@ -216,22 +216,23 @@ class Board
   end
 
   def promote_pawn_check(piece)
-    if @last_move.position[1] == 8 && @last_move.is_white
+    if @board_state[piece.to_sym].position[1] == 8 && @board_state[piece.to_sym].is_white
       pawn_promotion("white", piece)
-    elsif @last_move.position[1] == 1 && !@last_move.is_white
+    elsif @board_state[piece.to_sym].position[1] == 1 && !@board_state[piece.to_sym].is_white
       pawn_promotion("black", piece)
     end
   end
 
   def pawn_promotion(color, piece)
-    pos = @last_move.position
+    pos = @board_state[piece.to_sym].position
     is_white = color == "white" ? true : false
     valid_input = false
     until valid_input
       valid_input = true
       pawn_promotion_text
-      piece = gets.chomp
-      case piece.downcase!
+      choice = gets.chomp
+      choice&.downcase!
+      case choice
       when 'b'
         @board_state[piece.to_sym] = Bishop.new(pos, is_white)
         @board_state[piece.to_sym].find_potential_moves(board_state = @board_state)
