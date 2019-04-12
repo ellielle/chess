@@ -45,6 +45,7 @@ class Chess
         end
       end
       game_end if @game.game_over[:checkmate]
+      game_end_stalemate if @game.game_over[:stalemate]
       @game.in_check?(@turn[1])
       change_turn
       valid_move = false
@@ -53,6 +54,12 @@ class Chess
 
   def game_end
     check_mate_text(@turn[0])
+    gets
+    exit
+  end
+
+  def game_end_stalemate
+    stalemate_text
     gets
     exit
   end
