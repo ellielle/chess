@@ -140,6 +140,7 @@ class Board
   end
 
   def space_exists?(position)
+    return false if position.nil?
     return true if @board_state.key?(position.to_sym)
     false
   end
@@ -166,6 +167,7 @@ class Board
     @board_state[move[1].to_sym].find_potential_moves(board_state = @board_state)
     @last_move = @board_state[move[1].to_sym]
     promote_pawn_check(move[1]) if @last_move.is_a?(Pawn) && !in_check?(turn)
+    in_check?(turn) if @check
     King.get_possible_moves(board_state = @board_state)
   end
 
@@ -177,6 +179,7 @@ class Board
         return true
       end
     end
+    @game_over[:checkmate] = false if @game_over[:checkmate]
     @check = false
     false
   end
@@ -245,5 +248,11 @@ class Board
         valid_input = false
       end
     end
+  end
+
+  def stalemate?
+    board_state = @board_state.compact
+    board_state.each_value { |value| return false unless value.is_a?(King) }
+    @game_over[:stalemate] = true
   end
 end
