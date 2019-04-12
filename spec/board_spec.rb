@@ -137,7 +137,7 @@ describe Board do
       end
     end
   end
-  describe "#pawn_promotion" do
+  describe "#promote_pawn_check" do
     context "when a white pawn makes it to the 8th rank" do
       it "allows user to promote the pawn to another piece" do
         board_state.each { |k, v| board_state[k] = nil unless v.is_a?(Pawn) && v.is_white }
