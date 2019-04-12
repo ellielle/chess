@@ -21,12 +21,23 @@ class Board
     @last_move = nil
     create_board
     place_pieces
+    initialize_potential_moves
   end
 
   def create_board
     ('a'..'h').each do |horizontal|
       (1..8).each do |vertical|
         @board_state["#{horizontal + vertical.to_s}".to_sym] = nil
+      end
+    end
+  end
+
+  def initialize_potential_moves
+    ('a'..'h').each do |horizontal|
+      (1..8).each do |vertical|
+        unless @board_state["#{horizontal + vertical.to_s}".to_sym].nil?
+          @board_state["#{horizontal + vertical.to_s}".to_sym].find_potential_moves(board_state = @board_state)
+        end
       end
     end
   end
@@ -125,6 +136,7 @@ class Board
     return false unless player_owns_piece?(start, turn)
     return false unless space_empty_or_enemy?(start, finish)
     return false unless move_in_moveset?(start, finish)
+    stalemate?(turn)
     true
   end
 
@@ -191,9 +203,9 @@ class Board
     @board_state.each_value do |piece|
       next if piece.nil?
       if piece.is_a?(King)
-        if piece.is_white && turn == "p1"
+        if piece.is_white && turn == @player1
           king = piece.potential_moves
-        elsif !piece.is_white && turn == "p2"
+        elsif !piece.is_white && turn == @player2
           king = piece.potential_moves
         end
       else
@@ -250,9 +262,15 @@ class Board
     end
   end
 
-  def stalemate?
+  def stalemate?(turn)
     board_state = @board_state.compact
-    board_state.each_value { |value| return false unless value.is_a?(King) }
-    @game_over[:stalemate] = true
+    is_white = turn == @player1 ? true : false
+    can_move = true
+    board_state.each_value do |value|
+      next if is_white && !value.is_white
+      next if !is_white && value.is_white
+      can_move = value.potential_moves.nil? ? false : true
+    end
+    @game_over[:stalemate] = true unless can_move
   end
 end
