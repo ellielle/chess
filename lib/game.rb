@@ -3,8 +3,7 @@ require_relative '../lib/chess'
 def load_game
   if File.exist?("../saves/chess.yaml") &&
       File.file?("../saves/chess.yaml")
-    save = YAML.load_file("../saves/chess.yaml")
-    game = save
+    game = YAML.load_file("../saves/chess.yaml")
     game.game_loop
   else
     puts "There are no saved games."
