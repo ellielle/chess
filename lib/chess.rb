@@ -1,4 +1,5 @@
 require_relative '../lib/board'
+require 'yaml'
 
 class Chess
   include ChessStrings
@@ -13,6 +14,7 @@ class Chess
   end
 
   def intro
+    system("cls")
     introduction_text
   end
 
@@ -73,12 +75,11 @@ class Chess
     @turn.reverse!
   end
 
-  def load_game; end
   def save_game
-    #TODO save game
+    Dir.mkdir("../saves") unless Dir.exist?("../saves")
+    yaml = YAML.dump(self)
+    File.open("../saves/chess.yaml", "w") { |file| file.puts yaml }
     puts "Saving game. Press ENTER to exit."
     exit_game(false)
   end
-
 end
-#TODO ADD SAVE AND RESUME FUNCTIONALITY
