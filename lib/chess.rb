@@ -76,9 +76,9 @@ class Chess
   end
 
   def save_game
-    Dir.mkdir("../saves") unless Dir.exist?("../saves")
+    Dir.mkdir("saves") unless Dir.exist?("saves")
     yaml = YAML.dump(self)
-    File.open("../saves/chess.yaml", "w") { |file| file.puts yaml }
+    File.open("saves/chess.yaml", "w") { |file| file.puts yaml }
     puts "Saving game. Press ENTER to exit."
     exit_game(false)
   end
