@@ -136,7 +136,7 @@ class Board
     return false unless player_owns_piece?(start, turn)
     return false unless space_empty_or_enemy?(start, finish)
     return false unless move_in_moveset?(start, finish)
-    check_stalemate(turn)
+    #check_stalemate(turn)
     true
   end
 
@@ -262,7 +262,7 @@ class Board
   end
 
   def check_stalemate(turn)
-    board_state = @board_state.compact
+    board_state = @board_state
     is_white = turn == @player1 ? true : false
     can_move = true
     board_state.each_value do |value|
