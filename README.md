@@ -5,7 +5,7 @@ The project is from [The Odin Project](https://www.theodinproject.com/courses/ru
 
 ![Screenshot](images/chess.png)
 
-##Installation
+## Installation
 If you have Ruby installed: 
 ```
 $ git clone https://github.com/ellielle/chess.git
